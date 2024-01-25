@@ -30,11 +30,17 @@ public class PackageServiceImpl implements PackageService {
             throw new DataIntegrityViolationException("A package with the same package code already exists.");
         }
 
+        // Initialize spots with an empty list if it is null
+        if (packageEntity.getSpots() == null) {
+            packageEntity.setSpots(new ArrayList<>());
+        }
+
         packageRepository.save(packageEntity);
 
         // Convert and return the saved package as a DTO
         return packageConverter.convertEntityToDto(packageEntity);
     }
+
 
     @Override
     public void deletePackageById(Long packageId) {

@@ -1,5 +1,7 @@
 package com.travel.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -23,4 +25,7 @@ public class PackageDto {
 
     @NotNull(message = "Price is required")
     private Double price;
+
+    // Additional fields for spots associated with the package (if needed)
+    private List<SpotDto> spots;
 }

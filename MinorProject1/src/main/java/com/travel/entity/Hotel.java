@@ -39,6 +39,7 @@ public class Hotel {
 
     @Column(name = "Manager_Name", length = 50)
     private String managerName;
-
+    
+    
 
 }

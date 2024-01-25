@@ -1,16 +1,12 @@
 package com.travel.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Packages")
@@ -36,4 +32,11 @@ public class Package {
 
     @Column(name = "Price", nullable = false)
     private Double price;
+  
+ // In Package entity
+    @OneToMany(mappedBy = "travelPackage", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Spot> spots;
+
+
+    // Constructors, getters, setters
 }

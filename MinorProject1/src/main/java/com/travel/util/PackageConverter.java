@@ -1,33 +1,59 @@
 package com.travel.util;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.travel.dto.PackageDto;
+import com.travel.dto.SpotDto;
 import com.travel.entity.Package;
+import com.travel.entity.Spot;
 
 @Component
+//PackageConverter.java
 public class PackageConverter {
 
-    // Converts PackageDto to Package Entity
-    public Package convertDtoToEntity(PackageDto packageDto) {
-        Package packageEntity = new Package();
+ @Autowired
+ private SpotConverter spotConverter;
 
-        if (packageDto != null) {
-            BeanUtils.copyProperties(packageDto, packageEntity);
-        }
+ // Other methods...
 
-        return packageEntity;
-    }
+ // Converts PackageDto to Package Entity
+ public Package convertDtoToEntity(PackageDto packageDto) {
+     Package packageEntity = new Package();
 
-    // Converts Package Entity to PackageDto
-    public PackageDto convertEntityToDto(Package packageEntity) {
-        PackageDto packageDto = new PackageDto();
+     if (packageDto != null) {
+         BeanUtils.copyProperties(packageDto, packageEntity);
+         // Convert spots from SpotDto to Spot entities if spots are present in the DTO
+         if (packageDto.getSpots() != null && !packageDto.getSpots().isEmpty()) {
+             List<Spot> spots = packageDto.getSpots().stream()
+                     .map(spotConverter::convertDtoToEntity)
+                     .collect(Collectors.toList());
+             packageEntity.setSpots(spots);
+         }
+     }
 
-        if (packageEntity != null) {
-            BeanUtils.copyProperties(packageEntity, packageDto);
-        }
+     return packageEntity;
+ }
 
-        return packageDto;
-    }
+ // Converts Package Entity to PackageDto
+ public PackageDto convertEntityToDto(Package packageEntity) {
+     PackageDto packageDto = new PackageDto();
+
+     if (packageEntity != null) {
+         BeanUtils.copyProperties(packageEntity, packageDto);
+         // Convert spots from Spot entities to SpotDto if spots are present in the entity
+         if (packageEntity.getSpots() != null && !packageEntity.getSpots().isEmpty()) {
+             List<SpotDto> spots = packageEntity.getSpots().stream()
+                     .map(spotConverter::convertEntityToDto)
+                     .collect(Collectors.toList());
+             packageDto.setSpots(spots);
+         }
+     }
+
+     return packageDto;
+ }
 }

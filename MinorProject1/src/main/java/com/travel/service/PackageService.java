@@ -7,7 +7,6 @@ import com.travel.entity.Package;
 
 public interface PackageService {
 
-    PackageDto savePackage(Package packageEntity);
 
     void deletePackageById(Long packageId);
 
@@ -16,4 +15,6 @@ public interface PackageService {
     List<PackageDto> getPackageList();
 
 	PackageDto getPackageById(Long packageId);
+
+	PackageDto savePackage(Package packageEntity);
 }
