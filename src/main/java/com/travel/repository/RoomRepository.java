@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.travel.entity.Hotel;
 import com.travel.entity.Room;
@@ -14,4 +16,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
 
     Optional<Room> findByHotelAndRoomTypeAndRoomName(Hotel hotel, String roomType, String roomName);
 
+    
+    @Query("SELECT r FROM Room r WHERE r.id = :roomId AND r.hotel = :hotel")
+    Optional<Room> findByIdAndHotel(@Param("roomId") Long roomId, @Param("hotel") Hotel hotel);
 }
