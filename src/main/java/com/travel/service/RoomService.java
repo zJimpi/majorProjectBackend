@@ -3,8 +3,6 @@ package com.travel.service;
 import java.util.List;
 
 import javax.validation.Valid;
-
-import com.travel.dto.HotelDto;
 import com.travel.dto.RoomDto;
 
 public interface RoomService {
