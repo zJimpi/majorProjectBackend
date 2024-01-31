@@ -3,28 +3,23 @@ package com.travel.service;
 import java.util.List;
 
 import com.travel.dto.HotelDto;
-import com.travel.dto.RoomDto;
 import com.travel.entity.Hotel;
 
 public interface HotelsService {
 
 	HotelDto saveHotel(Hotel hotel);
 
-	HotelDto updateHotel(int hotelId, HotelDto existingHotelDto, List<RoomDto> roomsDto);
+
+    void deleteHotelById(Long hotelId);
+    // Method to delete a hotel by its unique identifier (hotelId).
+
 
 	void deleteHotelById(int hotelId);
 
-	List<HotelDto> getHotelList();
 
-	HotelDto getHotelById(int hotelId);
+	HotelDto getHotelById(Long hotelId);
 
-	RoomDto updateRoomForHotel(int hotelId, Long roomId, RoomDto roomDto);
-
-	void deleteRoomForHotel(int hotelId, Long roomId);
-
-	RoomDto saveRoomForHotel(int hotelId, RoomDto roomDto);
-
-	List<RoomDto> getRoomsForHotel(int hotelId);
+	HotelDto updateHotel(Long hotelId, Hotel existingHotel);
 
 
 

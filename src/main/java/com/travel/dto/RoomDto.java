@@ -1,7 +1,10 @@
 package com.travel.dto;
 
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.travel.entity.Hotel;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,8 +15,6 @@ public class RoomDto {
 
     private Long roomId;
 
-    @NotNull(message = "Hotel ID is required")
-    private Long hotelId;
 
     @NotBlank(message = "Room Type is required")
     private String roomType;
@@ -24,7 +25,6 @@ public class RoomDto {
     @NotNull(message = "Price Per Day is required")
     private Double pricePerDay;
     
-    // Additional fields if needed
-
-    // Constructors, getters, setters
+    @ManyToOne
+    private Hotel hotel;
 }

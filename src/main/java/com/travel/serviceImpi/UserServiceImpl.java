@@ -1,27 +1,29 @@
-//package com.travel.serviceImpi;
-//
-//import java.io.IOException;
-//import java.nio.file.Files;
-//import java.nio.file.Path;
-//import java.nio.file.Paths;
-//import java.util.List;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.beans.factory.annotation.Value;
-//import org.springframework.dao.DataIntegrityViolationException;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-//import org.springframework.stereotype.Service;
-//import org.springframework.web.multipart.MultipartFile;
-//
-//import com.travel.exception.ResourceNotFound;
-//import com.travel.exception.ResourceNotFoundException;
-//import com.travel.dto.UserDto;
-//import com.travel.entity.User;
-//import com.travel.repository.UserRepository;
-//import com.travel.service.UserService;
-//import com.travel.util.UserConverter;
-//
-//@Service
-//public class UserServiceImpl implements UserService {
+
+package com.travel.serviceImpi;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.travel.exception.ResourceNotFound;
+import com.travel.exception.ResourceNotFoundException;
+import com.travel.dto.UserDto;
+import com.travel.entity.User;
+import com.travel.repository.UserRepository;
+import com.travel.service.UserService;
+import com.travel.util.UserConverter;
+
+@Service
+public class UserServiceImpl implements UserService {
+
 //
 //	@Autowired
 //	private UserRepository userRepository;
@@ -206,5 +208,7 @@
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
-//    
-//}
+
+    
+}
+

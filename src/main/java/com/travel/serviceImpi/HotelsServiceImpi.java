@@ -43,137 +43,58 @@ public class HotelsServiceImpi implements HotelsService {
 		return hotelsConverter.convertEntityToDto(hotel);
 	}
 
-    @Override
-    public HotelDto updateHotel(int hotelId, HotelDto existingHotelDto, List<RoomDto> roomsDto) {
-        Hotel existingHotel = getHotelByIdOrThrow(hotelId);
 
-        existingHotel.setHotelName(existingHotelDto.getHotelName());
-        existingHotel.setHotelLocation(existingHotelDto.getHotelLocation());
-        existingHotel.setAddress(existingHotelDto.getAddress());
-        existingHotel.setHotelMobileNumber(existingHotelDto.getHotelMobileNumber());
-        existingHotel.setManagerName(existingHotelDto.getManagerName());
+	
+	@Override
+	public List<HotelDto> getHotelList() {
+		List<Hotel> hotels = hotelsRepository.findAll();
+		List<HotelDto> hotelDtos = new ArrayList<>();
 
-        validateHotelUniqueness(existingHotel.getHotelName(), existingHotel.getHotelLocation(),
-                existingHotel.getHotelMobileNumber(), hotelId);
+		for (Hotel h : hotels) {
+			HotelDto hotelDto = hotelsConverter.convertEntityToDto(h);
+			hotelDtos.add(hotelDto);
+		}
 
-        hotelsRepository.save(existingHotel);
+		return hotelDtos;
+	}
 
-        updateRoomsForHotel(existingHotel, roomsDto);
-
-        return hotelsConverter.convertEntityToDto(existingHotel);
-    }
 
 	@Override
-	public void deleteHotelById(int hotelId) {
-		Hotel hotel = getHotelByIdOrThrow(hotelId);
+	public void deleteHotelById(Long hotelId) {
+		Hotel hotel = hotelsRepository.findById(hotelId)
+				.orElseThrow(() -> new ResourceNotFound("Hotel", "id", hotelId));
 		hotelsRepository.delete(hotel);
 	}
 
 	@Override
-	public List<HotelDto> getHotelList() {
-		List<Hotel> hotels = hotelsRepository.findAll();
-		return hotelsConverter.convertEntityListToDtoList(hotels);
-	}
+	public HotelDto getHotelById(Long hotelId) {
+		// Call the repository or any necessary logic to get the hotel by its ID
+		Hotel hotel = hotelsRepository.findById(hotelId).orElseThrow(
+				()-> new ResourceNotFound("Hotel", "id", hotelId));
 
-	@Override
-	public HotelDto getHotelById(int hotelId) {
-		Hotel hotel = getHotelByIdOrThrow(hotelId);
 		return hotelsConverter.convertEntityToDto(hotel);
+	
 	}
+
 
 	@Override
-	public RoomDto updateRoomForHotel(int hotelId, Long roomId, RoomDto roomDto) {
-		Hotel hotel = getHotelByIdOrThrow(hotelId);
-		Room existingRoom = getRoomByIdAndHotelOrThrow(roomId, hotel);
-
-		existingRoom.setRoomType(roomDto.getRoomType());
-		existingRoom.setRoomName(roomDto.getRoomName());
-		existingRoom.setPricePerDay(roomDto.getPricePerDay());
-
-		validateRoomUniquenessForHotel(hotelId, existingRoom.getRoomType(), existingRoom.getRoomName());
-
-		roomRepository.save(existingRoom);
-
-		return roomConverter.convertEntityToDto(existingRoom);
+	public HotelDto updateHotel(Long hotelId, Hotel hotel) {
+		
+		Hotel existingHotel = hotelsRepository.findById(hotelId).orElseThrow(()->
+		new ResourceNotFound("Hotel", "id", hotelId));
+		
+		existingHotel.setAddress(hotel.getAddress());
+		existingHotel.setHotelLocation(hotel.getHotelLocation());
+		existingHotel.setHotelMobileNumber(hotel.getHotelMobileNumber());
+		existingHotel.setHotelName(hotel.getHotelName());
+		existingHotel.setManagerName(hotel.getManagerName());
+		existingHotel.setState(hotel.getState());
+		
+		hotelsRepository.save(existingHotel);
+		
+		
+		return hotelsConverter.convertEntityToDto(existingHotel);
 	}
 
-	@Override
-	public void deleteRoomForHotel(int hotelId, Long roomId) {
-		Hotel hotel = getHotelByIdOrThrow(hotelId);
-		Room room = getRoomByIdAndHotelOrThrow(roomId, hotel);
-		roomRepository.delete(room);
-	}
-
-	@Override
-	public List<RoomDto> getRoomsForHotel(int hotelId) {
-		Hotel hotel = getHotelByIdOrThrow(hotelId);
-		List<Room> rooms = roomRepository.findByHotel(hotel);
-		return roomConverter.convertEntityListToDtoList(rooms);
-	}
-
-	@Override
-	public RoomDto saveRoomForHotel(int hotelId, RoomDto roomDto) {
-		Hotel hotel = getHotelByIdOrThrow(hotelId);
-
-		validateRoomUniquenessForHotel(hotelId, roomDto.getRoomType(), roomDto.getRoomName());
-
-		Room roomEntity = roomConverter.convertDtoToEntity(roomDto);
-		roomEntity.setHotel(hotel);
-
-		roomRepository.save(roomEntity);
-
-		return roomConverter.convertEntityToDto(roomEntity);
-	}
-
-	private void validateHotelUniqueness(String hotelName, String hotelLocation, String hotelMobileNumber,
-			int excludeHotelId) {
-		Optional<Hotel> existingHotel = hotelsRepository
-				.findByHotelNameAndHotelLocationAndHotelMobileNumberAndHotelIdNot(hotelName, hotelLocation,
-						hotelMobileNumber, excludeHotelId);
-		if (existingHotel.isPresent()) {
-			throw new DataIntegrityViolationException(
-					"A hotel with the same name, location, and mobile number already exists.");
-		}
-	}
-
-	private void validateRoomUniquenessForHotel(int hotelId, String roomType, String roomName) {
-		Hotel hotel = getHotelByIdOrThrow(hotelId);
-		Optional<Room> existingRoom = roomRepository.findByHotelAndRoomTypeAndRoomName(hotel, roomType, roomName);
-		if (existingRoom.isPresent()) {
-			throw new DataIntegrityViolationException("A room with the same details already exists for the hotel.");
-		}
-	}
-
-	private Hotel getHotelByIdOrThrow(int hotelId) {
-		return hotelsRepository.findById(hotelId).orElseThrow(() -> new ResourceNotFound("Hotel", "id", hotelId));
-	}
-
-	private Room getRoomByIdAndHotelOrThrow(Long roomId, Hotel hotel) {
-		return roomRepository.findByIdAndHotel(roomId, hotel)
-				.orElseThrow(() -> new ResourceNotFound("Room", "id", roomId));
-	}
-
-	private void updateRoomsForHotel(Hotel hotel, List<RoomDto> roomsDto) {
-		List<Room> existingRooms = roomRepository.findByHotel(hotel);
-
-		existingRooms.removeIf(existingRoom -> roomsDto.stream().noneMatch(
-				roomDto -> roomDto.getRoomId() != null && roomDto.getRoomId().equals(existingRoom.getRoomId())));
-
-		for (RoomDto roomDto : roomsDto) {
-			if (roomDto.getRoomId() != null) {
-				Room existingRoom = existingRooms.stream().filter(room -> roomDto.getRoomId().equals(room.getRoomId()))
-						.findFirst().orElseThrow(() -> new ResourceNotFound("Room", "id", roomDto.getRoomId()));
-
-				existingRoom.setRoomType(roomDto.getRoomType());
-				existingRoom.setRoomName(roomDto.getRoomName());
-				existingRoom.setPricePerDay(roomDto.getPricePerDay());
-
-				roomRepository.save(existingRoom);
-			} else {
-				Room newRoom = roomConverter.convertDtoToEntity(roomDto);
-				newRoom.setHotel(hotel);
-				roomRepository.save(newRoom);
-			}
-		}
-	}
+	
 }

@@ -15,6 +15,9 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     List<Room> findByHotel(Hotel hotel);
 
     Optional<Room> findByHotelAndRoomTypeAndRoomName(Hotel hotel, String roomType, String roomName);
+    
+    @Query("from Room where hotel=(from Hotel where hotelId=:h)")
+    List<Room> getRoomByHotelId(@Param("h") Long HotelId);
 
     
     @Query("SELECT r FROM Room r WHERE r.id = :roomId AND r.hotel = :hotel")

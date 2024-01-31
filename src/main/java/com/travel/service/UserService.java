@@ -1,13 +1,15 @@
-//package com.travel.service;
-//
-//import java.util.List;
-//
-//import org.springframework.web.multipart.MultipartFile;
-//
-//import com.travel.dto.UserDto;
-//import com.travel.entity.User;
-//
-//public interface UserService {
+
+package com.travel.service;
+
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.travel.dto.UserDto;
+import com.travel.entity.User;
+
+public interface UserService {
+
 //
 //    UserDto saveUser(User user);
 //    // Method to save a new user. It takes a 'User' object and returns a 'UserDto' representing the saved user.
@@ -31,4 +33,6 @@
 //	User getUserById(long userId);
 //
 //	void updateUserProfilePicture(long userId, MultipartFile profilePicture);
-//}
+
+}
+
