@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.travel.entity.Hotel;
 
-public interface HotelsRepository extends JpaRepository<Hotel, Integer> {
+public interface HotelsRepository extends JpaRepository<Hotel, Long> {
 
     @Query("SELECT h FROM Hotel h WHERE h.hotelName = :name")
     Hotel findHotelByName(@Param("name") String name);

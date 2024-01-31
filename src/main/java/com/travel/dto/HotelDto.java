@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.util.List;
 
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -12,7 +13,7 @@ import javax.validation.constraints.Size;
 @Setter
 public class HotelDto {
 
-    private int hotelId;
+    private Long hotelId;
 
     @NotBlank(message = "Hotel name is required")
     @Size(max = 50, message = "Max. limit is 50")
@@ -22,6 +23,8 @@ public class HotelDto {
     @Size(max = 100, message = "Max. limit is 100")
     private String hotelLocation;
 
+    private String state;
+    
     @NotBlank(message = "Address is required")
     @Size(max = 255, message = "Max. limit is 255")
     private String address;
@@ -32,5 +35,6 @@ public class HotelDto {
     @Size(max = 50, message = "Max. limit is 50")
     private String managerName;
 
+    @OneToMany
     private List<RoomDto> room;
 }

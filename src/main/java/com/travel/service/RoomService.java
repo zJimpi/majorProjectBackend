@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import com.travel.dto.HotelDto;
 import com.travel.dto.RoomDto;
+import com.travel.entity.Room;
 
 public interface RoomService {
 
@@ -13,13 +14,13 @@ public interface RoomService {
 
 	void deleteRoomById(Long roomId);
 
-	RoomDto updateRoom(Long roomId, RoomDto roomDto);
+	RoomDto updateRoomById(Long roomId, Room room);
 
 	RoomDto getRoomById(Long roomId);
 
 
 	List<RoomDto> getRoomList();
 
-	List<RoomDto> updateRoomsForHotel(int hotelId, @Valid List<RoomDto> rooms);
+	public void assignRoomToHotel(Long roomId, Long hotelId);
 
 }

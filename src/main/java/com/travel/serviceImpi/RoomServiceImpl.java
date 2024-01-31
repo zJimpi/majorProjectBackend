@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.travel.dto.RoomDto;
+import com.travel.entity.Hotel;
 import com.travel.entity.Room;
 import com.travel.exception.ResourceNotFound;
 import com.travel.repository.HotelsRepository;
@@ -49,13 +50,13 @@ public class RoomServiceImpl implements RoomService {
 	}
 
 	@Override
-	public RoomDto updateRoom(Long roomId, RoomDto roomDto) {
+	public RoomDto updateRoomById(Long roomId, Room room) {
 		Room existingRoom = roomRepository.findById(roomId)
 				.orElseThrow(() -> new ResourceNotFound("Room", "id", roomId));
 
-		existingRoom.setRoomType(roomDto.getRoomType());
-		existingRoom.setRoomName(roomDto.getRoomName());
-		existingRoom.setPricePerDay(roomDto.getPricePerDay());
+		existingRoom.setRoomType(room.getRoomType());
+		existingRoom.setRoomName(room.getRoomName());
+		existingRoom.setPricePerDay(room.getPricePerDay());
 		// Set additional fields as needed
 
 		// Save the updated room
@@ -93,63 +94,18 @@ public class RoomServiceImpl implements RoomService {
 			throw new ResourceNotFound("Room", "id", roomId);
 		}
 	}
-
-	@Override
-	@Transactional
-	public List<RoomDto> updateRoomsForHotel(int hotelId, @Valid List<RoomDto> rooms) {
-	    // Retrieve the hotel entity
-	    com.travel.entity.Hotel hotel = hotelRepository.findById(hotelId)
-	            .orElseThrow(() -> new ResourceNotFound("Hotel", "id", hotelId));
-
-	    List<RoomDto> updatedRooms = new ArrayList<>();
-
-	    try {
-	        // Begin a transaction
-	        for (RoomDto roomDto : rooms) {
-	            if (isDuplicateRoom(hotelId, roomDto)) {
-	                // Handle duplicate room logic, you can throw an exception or handle it as needed
-	                throw new RuntimeException("Duplicate room found: " + roomDto.getRoomName());
-	            }
-
-	            if (roomDto.getRoomId() != null) {
-	                // Existing room, update it
-	                Room existingRoom = roomRepository.findById(roomDto.getRoomId())
-	                        .orElseThrow(() -> new ResourceNotFound("Room", "id", roomDto.getRoomId()));
-
-	                existingRoom.setRoomType(roomDto.getRoomType());
-	                existingRoom.setRoomName(roomDto.getRoomName());
-	                existingRoom.setPricePerDay(roomDto.getPricePerDay());
-	                existingRoom.setHotel(hotel);
-	                roomRepository.save(existingRoom);
-
-	                updatedRooms.add(roomConverter.convertEntityToDto(existingRoom));
-	            } else {
-	                // New room, create and save it
-	                Room newRoom = new Room();
-	                newRoom.setRoomType(roomDto.getRoomType());
-	                newRoom.setRoomName(roomDto.getRoomName());
-	                newRoom.setPricePerDay(roomDto.getPricePerDay());
-	                newRoom.setHotel(hotel);
-	                roomRepository.save(newRoom);
-
-	                updatedRooms.add(roomConverter.convertEntityToDto(newRoom));
-	            }
-	        }
-	        // Commit the transaction
-	    } catch (Exception e) {
-	        // Rollback the transaction in case of an exception
-	        throw new RuntimeException("Failed to update rooms for the hotel.", e);
-	    }
-
-	    return updatedRooms;
+	
+	public void assignRoomToHotel(Long roomId, Long hotelId) {
+		Hotel hotel = hotelRepository.findById(hotelId).orElseThrow( 
+				()-> new ResourceNotFound("Hotel", "id", hotelId));
+		Room room = roomRepository.findById(roomId).orElseThrow(
+				()-> new ResourceNotFound("room", "id", roomId));
+		
+		room.setHotel(hotel);
+		
+		roomRepository.save(room);
+		hotelRepository.save(hotel);
+		
 	}
 
-	private boolean isDuplicateRoom(int hotelId, RoomDto roomDto) {
-	    // Check if a room with the same name, type, and hotel ID already exists
-	    Optional<Room> existingRoom = roomRepository.findByHotelAndRoomTypeAndRoomName(
-	            hotelRepository.findById(hotelId).orElseThrow(() -> new ResourceNotFound("Hotel", "id", hotelId)),
-	            roomDto.getRoomType(), roomDto.getRoomName());
-
-	    return existingRoom.isPresent() && !existingRoom.get().getRoomId().equals(roomDto.getRoomId());
-	}
 }

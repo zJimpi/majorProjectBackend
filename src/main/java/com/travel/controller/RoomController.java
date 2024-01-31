@@ -1,7 +1,11 @@
 package com.travel.controller;
 
 import com.travel.dto.RoomDto;
+import com.travel.entity.Hotel;
+import com.travel.entity.Room;
 import com.travel.service.RoomService;
+import com.travel.util.RoomConverter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +21,8 @@ public class RoomController {
 
     @Autowired
     private RoomService roomService;
+    
+    private RoomConverter roomConverter; 
 
     // Endpoint for saving a room
     @PostMapping("/saveRoom")
@@ -32,9 +38,10 @@ public class RoomController {
     }
 
     // Endpoint for updating a room by its ID
-    @PutMapping("/updateRoom/{id}")
+    @PutMapping("/updateRoomById/{id}")
     public RoomDto updateRoom(@PathVariable("id") Long roomId, @RequestBody RoomDto roomDto) {
-        return roomService.updateRoom(roomId, roomDto);
+    	final Room room = roomConverter.convertDtoToEntity(roomDto);
+		return roomService.updateRoomById(roomId, room);
     }
 
     // Endpoint for retrieving a list of rooms
@@ -49,9 +56,10 @@ public class RoomController {
         return roomService.getRoomById(roomId);
     }
 
-    // Endpoint for updating rooms for a hotel
-    @PutMapping("/updateRoomsForHotel/{hotelId}")
-    public List<RoomDto> updateRoomsForHotel(@PathVariable("hotelId") int hotelId, @Valid @RequestBody List<RoomDto> rooms) {
-        return roomService.updateRoomsForHotel(hotelId, rooms);
+    @PostMapping("/assignRoom/{roomId}/toHotel/{hotelId}")
+    public ResponseEntity<String> assignRoomToHotel(@PathVariable("roomId") Long roomId,@PathVariable("hotelId") Long hotelId){
+    	roomService.assignRoomToHotel(roomId, hotelId);
+    	return new ResponseEntity<String>("Room with id "+roomId+" assinged to hotel with id "+hotelId, HttpStatus.OK);
     }
+
 }
