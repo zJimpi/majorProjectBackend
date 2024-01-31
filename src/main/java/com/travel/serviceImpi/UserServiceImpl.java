@@ -1,3 +1,4 @@
+
 package com.travel.serviceImpi;
 
 import java.io.IOException;
@@ -22,6 +23,7 @@ import com.travel.util.UserConverter;
 
 @Service
 public class UserServiceImpl implements UserService {
+
 //
 //	@Autowired
 //	private UserRepository userRepository;
@@ -206,5 +208,7 @@ public class UserServiceImpl implements UserService {
 //		// TODO Auto-generated method stub
 //		return null;
 //	}
+
     
 }
+

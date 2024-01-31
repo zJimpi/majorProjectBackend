@@ -13,4 +13,3 @@ public class TravelGuideApplication {
      SpringApplication.run(TravelGuideApplication.class, args);
  }
 }
-//updated

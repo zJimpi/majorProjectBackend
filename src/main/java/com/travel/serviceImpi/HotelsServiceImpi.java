@@ -2,6 +2,7 @@ package com.travel.serviceImpi;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -35,19 +36,13 @@ public class HotelsServiceImpi implements HotelsService {
 
 	@Override
 	public HotelDto saveHotel(Hotel hotel) {
-		// Check if a hotel with the same name, location, and mobile number already
-		// exists
-		if (hotelAlreadyExists(hotel.getHotelName(), hotel.getHotelLocation(), hotel.getHotelMobileNumber())) {
-			throw new DataIntegrityViolationException(
-					"A hotel with the same name, location, and mobile number already exists.");
-		}
+		validateHotelUniqueness(hotel.getHotelName(), hotel.getHotelLocation(), hotel.getHotelMobileNumber(), 0);
 
-		// Save the hotel if the check passes
 		hotelsRepository.save(hotel);
 
-		// Convert and return the saved hotel as a DTO
 		return hotelsConverter.convertEntityToDto(hotel);
 	}
+
 
 	
 	@Override
@@ -63,13 +58,6 @@ public class HotelsServiceImpi implements HotelsService {
 		return hotelDtos;
 	}
 
-	// Additional method to check if a hotel with the same name, location, and
-	// mobile number already exists
-	private boolean hotelAlreadyExists(String hotelName, String hotelLocation, String hotelMobileNumber) {
-		return hotelsRepository
-				.findByHotelNameAndHotelLocationAndHotelMobileNumber(hotelName, hotelLocation, hotelMobileNumber)
-				.isPresent();
-	}
 
 	@Override
 	public void deleteHotelById(Long hotelId) {
@@ -109,5 +97,4 @@ public class HotelsServiceImpi implements HotelsService {
 	}
 
 	
-
 }

@@ -56,6 +56,7 @@ public class PackageServiceImpl implements PackageService {
         existingPackage.setPackageCode(packageEntity.getPackageCode());
         existingPackage.setLocation(packageEntity.getLocation());
         existingPackage.setPrice(packageEntity.getPrice());
+        existingPackage.setSpots(packageEntity.getSpots());
 
         // Check if a package with the same package code already exists
         if (packageAlreadyExists(existingPackage.getPackageCode(), packageId)) {

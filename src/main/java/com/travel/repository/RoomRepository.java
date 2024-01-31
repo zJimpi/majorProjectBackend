@@ -19,4 +19,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     @Query("from Room where hotel=(from Hotel where hotelId=:h)")
     List<Room> getRoomByHotelId(@Param("h") Long HotelId);
 
+    
+    @Query("SELECT r FROM Room r WHERE r.id = :roomId AND r.hotel = :hotel")
+    Optional<Room> findByIdAndHotel(@Param("roomId") Long roomId, @Param("hotel") Hotel hotel);
 }

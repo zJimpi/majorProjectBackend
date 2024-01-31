@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -34,8 +36,11 @@ public class Package {
     private Double price;
   
  // In Package entity
-    @OneToMany(mappedBy = "travelPackage", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Spot> spots;
+//    @OneToMany(mappedBy = "travelPackage", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Spot> spots;
+    
+    @Column(name = "Spots", nullable = false)
+    private ArrayList<String> spots;
 
 
     // Constructors, getters, setters

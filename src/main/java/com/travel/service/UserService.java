@@ -1,3 +1,4 @@
+
 package com.travel.service;
 
 import java.util.List;
@@ -8,6 +9,7 @@ import com.travel.dto.UserDto;
 import com.travel.entity.User;
 
 public interface UserService {
+
 //
 //    UserDto saveUser(User user);
 //    // Method to save a new user. It takes a 'User' object and returns a 'UserDto' representing the saved user.
@@ -31,4 +33,6 @@ public interface UserService {
 //	User getUserById(long userId);
 //
 //	void updateUserProfilePicture(long userId, MultipartFile profilePicture);
+
 }
+

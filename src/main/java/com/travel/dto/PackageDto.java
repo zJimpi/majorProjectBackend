@@ -1,5 +1,6 @@
 package com.travel.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
@@ -27,5 +28,5 @@ public class PackageDto {
     private Double price;
 
     // Additional fields for spots associated with the package (if needed)
-    private List<SpotDto> spots;
+    private ArrayList<String> spots;
 }
