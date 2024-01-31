@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.travel.dto.UserDto;
-import com.travel.entity.User;
+//import com.travel.dto.UserDto;
+//import com.travel.entity.User;
 
 public interface UserService {
 

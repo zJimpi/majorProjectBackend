@@ -14,13 +14,10 @@ public interface HotelsService {
     // Method to delete a hotel by its unique identifier (hotelId).
 
 
-	void deleteHotelById(int hotelId);
-
-
 	HotelDto getHotelById(Long hotelId);
 
 	HotelDto updateHotel(Long hotelId, Hotel existingHotel);
 
-
+	public List<HotelDto> getHotelList();
 
 }

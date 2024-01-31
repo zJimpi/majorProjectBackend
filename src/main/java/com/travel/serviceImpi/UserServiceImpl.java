@@ -15,11 +15,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.travel.exception.ResourceNotFound;
 import com.travel.exception.ResourceNotFoundException;
-import com.travel.dto.UserDto;
-import com.travel.entity.User;
-import com.travel.repository.UserRepository;
+//import com.travel.dto.UserDto;
+//import com.travel.entity.User;
+//import com.travel.repository.UserRepository;
 import com.travel.service.UserService;
-import com.travel.util.UserConverter;
+//import com.travel.util.UserConverter;
 
 @Service
 public class UserServiceImpl implements UserService {
