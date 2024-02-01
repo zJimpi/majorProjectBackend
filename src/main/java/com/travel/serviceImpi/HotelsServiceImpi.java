@@ -16,6 +16,7 @@ import com.travel.exception.ResourceNotFound;
 import com.travel.repository.HotelsRepository;
 import com.travel.repository.RoomRepository;
 import com.travel.service.HotelsService;
+import com.travel.service.RoomService;
 import com.travel.util.HotelsConverter;
 import com.travel.util.RoomConverter;
 
@@ -33,26 +34,18 @@ public class HotelsServiceImpi implements HotelsService {
 
 	@Autowired
 	private RoomConverter roomConverter;
+	
+	@Autowired
+	private RoomService roomService;
 
 	@Override
 	public HotelDto saveHotel(Hotel hotel) {
-		//validateHotelUniqueness(hotel.getHotelName(), hotel.getHotelLocation(), hotel.getHotelMobileNumber(), 0);
 
 		hotelsRepository.save(hotel);
 
 		return hotelsConverter.convertEntityToDto(hotel);
 	}
 
-//	private void validateHotelUniqueness(String hotelName, String hotelLocation, String hotelMobileNumber,
-//			ong excludeHotelId) {
-//		Optional<Hotel> existingHotel = hotelsRepository
-//				.findByHotelNameAndHotelLocationAndHotelMobileNumberAndHotelIdNot(hotelName, hotelLocation,
-//						hotelMobileNumber, excludeHotelId);
-//		if (existingHotel.isPresent()) {
-//			throw new DataIntegrityViolationException(
-//					"A hotel with the same name, location, and mobile number already exists.");
-//		}
-//	}
 	
 	@Override
 	public List<HotelDto> getHotelList() {
@@ -72,6 +65,12 @@ public class HotelsServiceImpi implements HotelsService {
 	public void deleteHotelById(Long hotelId) {
 		Hotel hotel = hotelsRepository.findById(hotelId)
 				.orElseThrow(() -> new ResourceNotFound("Hotel", "id", hotelId));
+		//delete assinged hotels
+		List<RoomDto>roomList = roomService.getroomByHotelId(hotelId);
+		for(RoomDto roomD :roomList) {
+			Room room = roomConverter.convertDtoToEntity(roomD);
+			roomRepository.delete(room);
+		}
 		hotelsRepository.delete(hotel);
 	}
 
@@ -93,17 +92,35 @@ public class HotelsServiceImpi implements HotelsService {
 		new ResourceNotFound("Hotel", "id", hotelId));
 		
 		existingHotel.setAddress(hotel.getAddress());
-		existingHotel.setHotelLocation(hotel.getHotelLocation());
-		existingHotel.setHotelMobileNumber(hotel.getHotelMobileNumber());
+		existingHotel.setLocation(hotel.getLocation());
+		existingHotel.setNumber(hotel.getNumber());
 		existingHotel.setHotelName(hotel.getHotelName());
-		existingHotel.setManagerName(hotel.getManagerName());
+		existingHotel.setManager(hotel.getManager());
 		existingHotel.setState(hotel.getState());
+		existingHotel.setImgUrl(hotel.getImgUrl());
 		
 		hotelsRepository.save(existingHotel);
 		
 		
 		return hotelsConverter.convertEntityToDto(existingHotel);
 	}
+
+	public void assignRoomidToHotelId(Long roomId,Long hotelId) {
+		
+		Room room = roomRepository.findById(roomId).orElseThrow(()->
+		new ResourceNotFound("Room", "id", roomId));
+			
+		Hotel hotel = hotelsRepository.findById(hotelId).orElseThrow(()->
+		new ResourceNotFound("Hotel", "id", hotelId));
+		
+		
+		room.setHotel(hotel);
+		
+
+		roomRepository.save(room);
+		hotelsRepository.save(hotel);
+		}
+
 
 	
 }

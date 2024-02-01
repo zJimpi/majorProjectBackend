@@ -8,17 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-//Lombok annotation that automatically generates getter methods for the class fields.
-
 @Setter
-//Lombok annotation that automatically generates setter methods for the class fields.
-
 @AllArgsConstructor
-//Lombok annotation that generates an all-args constructor for the class.
-
 @NoArgsConstructor
-//Lombok annotation that generates a no-args constructor for the class.
-
 public class ErrorDetails {
 
  private Date timeStamp;

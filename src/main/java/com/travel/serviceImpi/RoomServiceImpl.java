@@ -94,11 +94,33 @@ public class RoomServiceImpl implements RoomService {
 			throw new ResourceNotFound("Room", "id", roomId);
 		}
 	}
-
-	@Override
+	
 	public void assignRoomToHotel(Long roomId, Long hotelId) {
-		// TODO Auto-generated method stub
+		Hotel hotel = hotelRepository.findById(hotelId).orElseThrow( 
+				()-> new ResourceNotFound("Hotel", "id", hotelId));
+		Room room = roomRepository.findById(roomId).orElseThrow(
+				()-> new ResourceNotFound("room", "id", roomId));
+		
+		room.setHotel(hotel);
+		
+		
+		roomRepository.save(room);
+		hotelRepository.save(hotel);
 		
 	}
+
+	@Override
+	public List<RoomDto> getroomByHotelId(Long hotelId) {
+		List<Room> rooms =roomRepository.getRoomByHotelId(hotelId);
+		
+		List<RoomDto> roomDtos =new ArrayList<>();
+		
+		for(Room r: rooms) {
+			roomDtos.add(roomConverter.convertEntityToDto(r));
+		}
+		return roomDtos;
+	}
+
+
 
 }
