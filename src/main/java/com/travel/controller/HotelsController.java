@@ -1,8 +1,7 @@
 package com.travel.controller;
 
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.travel.dto.HotelDto;
-import com.travel.dto.RoomDto;
 import com.travel.entity.Hotel;
 import com.travel.service.HotelsService;
 import com.travel.util.HotelsConverter;
@@ -65,5 +63,14 @@ public class HotelsController {
 	public HotelDto updateHotel(@PathVariable("id") Long hotelId, @RequestBody HotelDto hotelDto) {
 		final Hotel hotel = hotelsConverter.convertDtoToEntity(hotelDto);
 		return hotelsService.updateHotel(hotelId, hotel);
+	}
+	
+	@PostMapping("/assignRoomId/{roomId}/toHotelId/{hotelId}")
+	public String assignRoomToHotel(@PathVariable("roomId") Long roomId, @PathVariable("hotelId") Long hotelId) {
+		
+		 hotelsService.assignRoomidToHotelId(roomId, hotelId);
+		 
+		 return "room id "+roomId+" assigned to hotel id "+hotelId;
+			
 	}
 }

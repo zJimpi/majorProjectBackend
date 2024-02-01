@@ -4,11 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-//Lombok annotation that automatically generates getter methods for the class fields.
-
 @Setter
-//Lombok annotation that automatically generates setter methods for the class fields.
-
 public class ResourceNotFound extends RuntimeException {
 
  private static final long serialVersionUID = 1L;

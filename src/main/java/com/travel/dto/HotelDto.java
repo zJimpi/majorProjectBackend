@@ -24,7 +24,7 @@ public class HotelDto {
 
 	@NotBlank(message = "Location is required")
 	@Size(max = 100, message = "Max. limit is 100")
-	private String hotelLocation;
+	private String location;
 
 
     private String state;
@@ -35,11 +35,12 @@ public class HotelDto {
 
 
 	@Size(max = 20, message = "Max. limit is 20")
-	private String hotelMobileNumber;
+	private String number;
 
 	@Size(max = 50, message = "Max. limit is 50")
-	private String managerName;
-
+	private String manager;
+	
+	private String imgUrl;
 
     @OneToMany
     private List<RoomDto> room;

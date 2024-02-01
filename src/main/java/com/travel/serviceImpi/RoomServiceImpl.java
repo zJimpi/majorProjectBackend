@@ -103,9 +103,24 @@ public class RoomServiceImpl implements RoomService {
 		
 		room.setHotel(hotel);
 		
+		
 		roomRepository.save(room);
 		hotelRepository.save(hotel);
 		
 	}
+
+	@Override
+	public List<RoomDto> getroomByHotelId(Long hotelId) {
+		List<Room> rooms =roomRepository.getRoomByHotelId(hotelId);
+		
+		List<RoomDto> roomDtos =new ArrayList<>();
+		
+		for(Room r: rooms) {
+			roomDtos.add(roomConverter.convertEntityToDto(r));
+		}
+		return roomDtos;
+	}
+
+
 
 }

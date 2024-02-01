@@ -36,23 +36,12 @@ public class HotelsServiceImpi implements HotelsService {
 
 	@Override
 	public HotelDto saveHotel(Hotel hotel) {
-		validateHotelUniqueness(hotel.getHotelName(), hotel.getHotelLocation(), hotel.getHotelMobileNumber(), 0);
 
 		hotelsRepository.save(hotel);
 
 		return hotelsConverter.convertEntityToDto(hotel);
 	}
 
-	private void validateHotelUniqueness(String hotelName, String hotelLocation, String hotelMobileNumber,
-			int excludeHotelId) {
-		Optional<Hotel> existingHotel = hotelsRepository
-				.findByHotelNameAndHotelLocationAndHotelMobileNumberAndHotelIdNot(hotelName, hotelLocation,
-						hotelMobileNumber, excludeHotelId);
-		if (existingHotel.isPresent()) {
-			throw new DataIntegrityViolationException(
-					"A hotel with the same name, location, and mobile number already exists.");
-		}
-	}
 	
 	@Override
 	public List<HotelDto> getHotelList() {
@@ -93,10 +82,10 @@ public class HotelsServiceImpi implements HotelsService {
 		new ResourceNotFound("Hotel", "id", hotelId));
 		
 		existingHotel.setAddress(hotel.getAddress());
-		existingHotel.setHotelLocation(hotel.getHotelLocation());
-		existingHotel.setHotelMobileNumber(hotel.getHotelMobileNumber());
+		existingHotel.setLocation(hotel.getLocation());
+		existingHotel.setNumber(hotel.getNumber());
 		existingHotel.setHotelName(hotel.getHotelName());
-		existingHotel.setManagerName(hotel.getManagerName());
+		existingHotel.setManager(hotel.getManager());
 		existingHotel.setState(hotel.getState());
 		
 		hotelsRepository.save(existingHotel);
@@ -104,6 +93,23 @@ public class HotelsServiceImpi implements HotelsService {
 		
 		return hotelsConverter.convertEntityToDto(existingHotel);
 	}
+
+	public void assignRoomidToHotelId(Long roomId,Long hotelId) {
+		
+		Room room = roomRepository.findById(roomId).orElseThrow(()->
+		new ResourceNotFound("Room", "id", roomId));
+			
+		Hotel hotel = hotelsRepository.findById(hotelId).orElseThrow(()->
+		new ResourceNotFound("Hotel", "id", hotelId));
+		
+		
+		room.setHotel(hotel);
+		
+
+		roomRepository.save(room);
+		hotelsRepository.save(hotel);
+		}
+
 
 	
 }

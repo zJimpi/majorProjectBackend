@@ -2,10 +2,8 @@ package com.travel.entity;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,26 +25,29 @@ public class Hotel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long hotelId;
-
-	@Column(length = 50, nullable = false)
-	private String hotelName;
-
-	@Column(length = 100, nullable = false)
-	private String hotelLocation;
+	private Long hotelid;
 	
-	@Column(nullable=false)
+	@Column(length= 50, nullable= false)
+	private String hotelName;
+	
+	@Column(length= 50, nullable= false)
+	private String location;
+	
+	@Column(length= 50, nullable= false)
 	private String state;
 	
-	@Column(length = 255, nullable = false)
+	@Column(nullable = false)
 	private String address;
-
-	@Column(length = 20)
-	private String hotelMobileNumber;
-
-	@Column(length = 50)
-	private String managerName;
-
+	
+	@Column(length= 11, nullable= false)
+	private String number;
+	
+	@Column(length= 50, nullable= false)
+	private String manager;
+	
+	@Column(nullable= true)
+	private String imgUrl;
+	
 	@OneToMany
 	private List<Room> room;
 
