@@ -36,23 +36,23 @@ public class HotelsServiceImpi implements HotelsService {
 
 	@Override
 	public HotelDto saveHotel(Hotel hotel) {
-		validateHotelUniqueness(hotel.getHotelName(), hotel.getHotelLocation(), hotel.getHotelMobileNumber(), 0);
+		//validateHotelUniqueness(hotel.getHotelName(), hotel.getHotelLocation(), hotel.getHotelMobileNumber(), 0);
 
 		hotelsRepository.save(hotel);
 
 		return hotelsConverter.convertEntityToDto(hotel);
 	}
 
-	private void validateHotelUniqueness(String hotelName, String hotelLocation, String hotelMobileNumber,
-			int excludeHotelId) {
-		Optional<Hotel> existingHotel = hotelsRepository
-				.findByHotelNameAndHotelLocationAndHotelMobileNumberAndHotelIdNot(hotelName, hotelLocation,
-						hotelMobileNumber, excludeHotelId);
-		if (existingHotel.isPresent()) {
-			throw new DataIntegrityViolationException(
-					"A hotel with the same name, location, and mobile number already exists.");
-		}
-	}
+//	private void validateHotelUniqueness(String hotelName, String hotelLocation, String hotelMobileNumber,
+//			ong excludeHotelId) {
+//		Optional<Hotel> existingHotel = hotelsRepository
+//				.findByHotelNameAndHotelLocationAndHotelMobileNumberAndHotelIdNot(hotelName, hotelLocation,
+//						hotelMobileNumber, excludeHotelId);
+//		if (existingHotel.isPresent()) {
+//			throw new DataIntegrityViolationException(
+//					"A hotel with the same name, location, and mobile number already exists.");
+//		}
+//	}
 	
 	@Override
 	public List<HotelDto> getHotelList() {

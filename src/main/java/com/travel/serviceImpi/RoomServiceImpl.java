@@ -94,17 +94,10 @@ public class RoomServiceImpl implements RoomService {
 			throw new ResourceNotFound("Room", "id", roomId);
 		}
 	}
-	
+
+	@Override
 	public void assignRoomToHotel(Long roomId, Long hotelId) {
-		Hotel hotel = hotelRepository.findById(hotelId).orElseThrow( 
-				()-> new ResourceNotFound("Hotel", "id", hotelId));
-		Room room = roomRepository.findById(roomId).orElseThrow(
-				()-> new ResourceNotFound("room", "id", roomId));
-		
-		room.setHotel(hotel);
-		
-		roomRepository.save(room);
-		hotelRepository.save(hotel);
+		// TODO Auto-generated method stub
 		
 	}
 

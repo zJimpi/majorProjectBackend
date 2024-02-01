@@ -18,7 +18,7 @@ public interface HotelsRepository extends JpaRepository<Hotel, Long> {
 			String hotelMobileNumber);
 
 	Optional<Hotel> findByHotelNameAndHotelLocationAndHotelMobileNumberAndHotelIdNot(String hotelName,
-			String hotelLocation, String hotelMobileNumber, int excludeHotelId);
+			String hotelLocation, String hotelMobileNumber, Long excludeHotelId);
 
     // Other CRUD methods for the Hotel entity are inherited from JpaRepository.
 }

@@ -47,7 +47,7 @@ public class Hotel {
 	@Column(length = 50)
 	private String managerName;
 
-	@OneToMany
+	@OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL)
 	private List<Room> room;
 
 }
