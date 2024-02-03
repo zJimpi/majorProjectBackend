@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.travel.dto.HotelDto;
 import com.travel.dto.PackageDto;
 import com.travel.dto.SpotDto;
 import com.travel.entity.Package;
@@ -27,8 +28,6 @@ public class PackageController {
 	@Autowired
 	PackageConverter packageConverter; // Autowired converter for converting DTOs and entities
 
-//	@Autowired
-//	SpotController spotController; // Autowire SpotController for managing spots
 
 	// Endpoint for saving a package
 	@PostMapping("/savePackage")
@@ -40,7 +39,6 @@ public class PackageController {
 		return packageService.savePackage(packageEntity);
 	}
 
-	// Endpoint for deleting a package by its ID
 	@DeleteMapping("/deletePackageById/{id}")
 	public ResponseEntity<String> deletePackageById(@PathVariable("id") Long packageId) {
 		// Call the service to delete the package by its ID
@@ -48,6 +46,11 @@ public class PackageController {
 
 		// Return a response indicating successful deletion
 		return new ResponseEntity<>(packageId + " is deleted successfully!!", HttpStatus.OK);
+	}
+	
+	@GetMapping("/getPackageById/{id}")
+	public PackageDto getPackageById(@PathVariable("id") Long packageId) {
+		return packageService.getPackageById(packageId);
 	}
 
 	// Endpoint for updating a package by its ID

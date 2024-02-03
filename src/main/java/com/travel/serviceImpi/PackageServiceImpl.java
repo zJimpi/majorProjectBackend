@@ -7,11 +7,19 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+
+import com.travel.dto.ActivityDto;
 import com.travel.dto.PackageDto;
+import com.travel.dto.RoomDto;
+import com.travel.entity.Activity;
 import com.travel.entity.Package;
+import com.travel.entity.Room;
 import com.travel.exception.ResourceNotFound;
+import com.travel.repository.ActivityRepository;
 import com.travel.repository.PackageRepository;
+import com.travel.service.ActivityService;
 import com.travel.service.PackageService;
+import com.travel.util.ActivityConverter;
 import com.travel.util.PackageConverter;
 
 @Service
@@ -22,6 +30,15 @@ public class PackageServiceImpl implements PackageService {
 
     @Autowired
     private PackageConverter packageConverter;
+    
+    @Autowired
+    private ActivityService activityService;
+    
+    @Autowired
+    private ActivityConverter activityConverter;
+    
+    @Autowired
+    private ActivityRepository activityRepository;
 
     @Override
     public PackageDto savePackage(Package packageEntity) {
@@ -45,6 +62,12 @@ public class PackageServiceImpl implements PackageService {
     @Override
     public void deletePackageById(Long packageId) {
         Package packageEntity = packageRepository.findById(packageId).orElseThrow(() -> new ResourceNotFound("Package", "id", packageId));
+        List<ActivityDto>activityList = activityService.getActivityListByPackageId(packageId);
+		for(ActivityDto a :activityList) {
+			Activity activity = activityConverter.convertDtoToEntity(a);
+			activityRepository.delete(activity);
+		}
+        
         packageRepository.delete(packageEntity);
     }
 
