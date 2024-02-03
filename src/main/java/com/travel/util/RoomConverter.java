@@ -36,8 +36,5 @@ public class RoomConverter {
 		return roomDto;
 	}
 
-	// Converts List<Room> entities to List<RoomDto>
-	public List<RoomDto> convertEntityListToDtoList(List<Room> rooms) {
-		return rooms.stream().map(this::convertEntityToDto).collect(Collectors.toList());
-	}
+	
 }
