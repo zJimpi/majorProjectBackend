@@ -41,7 +41,10 @@ public class Package {
     
     @Column(name = "Spots", nullable = false)
     private ArrayList<String> spots;
+    
+    @OneToMany
+	private List<Activity> activity;
 
 
-    // Constructors, getters, setters
+    
 }

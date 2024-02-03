@@ -52,3 +52,4 @@ public class Hotel {
 	private List<Room> room;
 
 }
+	
