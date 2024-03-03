@@ -48,9 +48,9 @@ public class PackageServiceImpl implements PackageService {
         }
 
         // Initialize spots with an empty list if it is null
-        if (packageEntity.getSpots() == null) {
-            packageEntity.setSpots(new ArrayList<>());
-        }
+//        if (packageEntity.getSpots() == null) {
+//            packageEntity.setSpots(new ArrayList<>());
+//        }
 
         packageRepository.save(packageEntity);
 

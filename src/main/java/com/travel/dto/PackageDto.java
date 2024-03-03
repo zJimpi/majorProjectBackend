@@ -28,5 +28,7 @@ public class PackageDto {
     private Double price;
 
     // Additional fields for spots associated with the package (if needed)
-    private ArrayList<String> spots;
+//    private ArrayList<String> spots;
+    
+    private String spots;
 }

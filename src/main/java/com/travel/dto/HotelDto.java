@@ -22,12 +22,7 @@ public class HotelDto {
 	@Size(max = 50, message = "Max. limit is 50")
 	private String hotelName;
 
-	@NotBlank(message = "Location is required")
-	@Size(max = 100, message = "Max. limit is 100")
-	private String location;
-
-
-    private String state;
+	private Long startingPrice;
     
     @NotBlank(message = "Address is required")
     @Size(max = 255, message = "Max. limit is 255")
@@ -37,9 +32,6 @@ public class HotelDto {
 	@Size(max = 20, message = "Max. limit is 20")
 	private String number;
 
-	@Size(max = 50, message = "Max. limit is 50")
-	private String manager;
-	
 	private String imgUrl;
 
     @OneToMany

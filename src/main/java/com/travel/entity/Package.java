@@ -39,8 +39,11 @@ public class Package {
 //    @OneToMany(mappedBy = "travelPackage", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<Spot> spots;
     
+//    @Column(name = "Spots", nullable = false)
+//    private ArrayList<String> spots;
+    
     @Column(name = "Spots", nullable = false)
-    private ArrayList<String> spots;
+    private String spots;
     
     @OneToMany
 	private List<Activity> activity;

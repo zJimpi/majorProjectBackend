@@ -5,12 +5,12 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-//import com.travel.dto.UserDto;
-//import com.travel.entity.User;
+import com.travel.dto.UserDto;
+import com.travel.entity.User;
 
 public interface UserService {
 
-//
+
 //    UserDto saveUser(User user);
 //    // Method to save a new user. It takes a 'User' object and returns a 'UserDto' representing the saved user.
 //
@@ -33,6 +33,18 @@ public interface UserService {
 //	User getUserById(long userId);
 //
 //	void updateUserProfilePicture(long userId, MultipartFile profilePicture);
+	
+	UserDto saveUser(User user);
+	
+	UserDto changeUserPassword(String userName, String oldPassword, String newPassword);
+	
+	void deleteUserById(Long userId);
+	
+	UserDto getUserByUsernameAndPassword(String userName, String password);
+	
+	boolean checkAdmin(String userName);
+	
+	
 
 }
 

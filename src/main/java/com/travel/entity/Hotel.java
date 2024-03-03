@@ -30,20 +30,14 @@ public class Hotel {
 	@Column(length= 50, nullable= false)
 	private String hotelName;
 	
-	@Column(length= 50, nullable= false)
-	private String location;
-	
-	@Column(length= 50, nullable= false)
-	private String state;
+	@Column(nullable= false)
+	private Long startingPrice;
 	
 	@Column(nullable = false)
 	private String address;
 	
 	@Column(length= 11, nullable= false)
 	private String number;
-	
-	@Column(length= 50, nullable= false)
-	private String manager;
 	
 	@Column(nullable= true)
 	private String imgUrl;

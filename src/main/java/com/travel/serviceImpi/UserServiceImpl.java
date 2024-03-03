@@ -10,29 +10,116 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.travel.dto.UserDto;
+import com.travel.entity.User;
 import com.travel.exception.ResourceNotFound;
 import com.travel.exception.ResourceNotFoundException;
+import com.travel.repository.UserRepository;
 //import com.travel.dto.UserDto;
 //import com.travel.entity.User;
 //import com.travel.repository.UserRepository;
 import com.travel.service.UserService;
-//import com.travel.util.UserConverter;
+import com.travel.util.UserConverter;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-//
-//	@Autowired
-//	private UserRepository userRepository;
-//
-//	@Autowired
-//	private UserConverter userConverter;
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private UserConverter userConverter;
+	
+	@Autowired
+    private PasswordEncoder passwordEncoder;
 //    @Value("${profilePictures.upload.path}")
 //    private String profilePicturesPath; // Set the path to a directory where you want to store profile pictures
-//
+
+	@Override
+	public UserDto saveUser(User user) {
+		// TODO Auto-generated method stub
+		
+		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+	    String encrypt = bcrypt.encode(user.getPassword());
+	    user.setPassword(encrypt);
+	    
+	  
+	    if(user.getUsername().toLowerCase().endsWith("admin"))
+	    {
+	    	user.setRole("admin");
+	    }
+	    else
+	    {
+	    	user.setRole("user");
+	    }
+	    userRepository.save(user);
+	    return userConverter.convertEntityToDto(user);
+	}
+
+	@Override
+	public UserDto changeUserPassword(String userName, String oldPassword, String newPassword) {
+		// TODO Auto-generated method stub
+		
+		BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+		User user = userRepository.findUserByUsername(userName);
+		if (user != null && passwordEncoder.matches(oldPassword, user.getPassword())) 
+		{
+			String encrypt = bcrypt.encode(newPassword);
+		    user.setPassword(encrypt);
+			userRepository.save(user);
+			return userConverter.convertEntityToDto(user);
+		}
+		return null;
+		
+	}
+
+	@Override
+	public void deleteUserById(Long userId) {
+		// TODO Auto-generated method stub
+		User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFound("User", "id", userId));
+		userRepository.delete(user);
+		
+	}
+
+	@Override
+	public UserDto getUserByUsernameAndPassword(String username, String password) {
+		// TODO Auto-generated method stub
+		User user = userRepository.findUserByUsername(username);
+        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+            return userConverter.convertEntityToDto(user);
+        }
+        return null;
+	}
+	
+	@Override
+	public boolean checkAdmin(String username)
+	{
+		if(username.toLowerCase().endsWith("admin"))
+	    {
+	    	return true;
+	    }
+	    else
+	    {
+	    	return false;
+	    }
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 //	@Override
 //	public UserDto saveUser(User user) {
 //	    // Check if a user with the same email or mobile already exists
@@ -207,8 +294,5 @@ public class UserServiceImpl implements UserService {
 //	public List<UserDto> getUserList() {
 //		// TODO Auto-generated method stub
 //		return null;
-//	}
-
-    
+//	}   
 }
-
