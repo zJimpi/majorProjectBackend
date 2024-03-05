@@ -28,26 +28,20 @@ public class Package {
 
     @Column(name = "Package_code", nullable = false, unique = true)
     private String packageCode;
+    
+    @Column(nullable = false)
+    private String packageDuration;
 
     @Column(name = "Location", nullable = false)
     private String location;
 
     @Column(name = "Price", nullable = false)
     private Double price;
-  
- // In Package entity
-//    @OneToMany(mappedBy = "travelPackage", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Spot> spots;
-    
-//    @Column(name = "Spots", nullable = false)
-//    private ArrayList<String> spots;
     
     @Column(name = "Spots", nullable = false)
     private String spots;
     
     @OneToMany
 	private List<Activity> activity;
-
-
-    
+   
 }

@@ -30,6 +30,9 @@ public class Hotel {
 	@Column(length= 50, nullable= false)
 	private String hotelName;
 	
+	@Column(length= 50, nullable= false)
+	private String location;
+	
 	@Column(nullable= false)
 	private Long startingPrice;
 	

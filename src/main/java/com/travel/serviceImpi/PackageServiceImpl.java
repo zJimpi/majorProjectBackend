@@ -77,6 +77,7 @@ public class PackageServiceImpl implements PackageService {
 
         existingPackage.setPckgName(packageEntity.getPckgName());
         existingPackage.setPackageCode(packageEntity.getPackageCode());
+        existingPackage.setPackageDuration(packageEntity.getPackageDuration());
         existingPackage.setLocation(packageEntity.getLocation());
         existingPackage.setPrice(packageEntity.getPrice());
         existingPackage.setSpots(packageEntity.getSpots());
@@ -133,6 +134,13 @@ public class PackageServiceImpl implements PackageService {
             // Handle the case where the package with the given ID does not exist
             throw new ResourceNotFound("Package", "id", packageId);
         }
+    }
+    
+    @Override
+    public String getSpotsByPackageId(Long packageId)
+    {
+    	Package packageEntity = packageRepository.findById(packageId).orElseThrow(() -> new ResourceNotFound("Package", "id", packageId));
+    	return packageEntity.getSpots();
     }
 
 }

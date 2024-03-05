@@ -52,6 +52,12 @@ public class PackageController {
 	public PackageDto getPackageById(@PathVariable("id") Long packageId) {
 		return packageService.getPackageById(packageId);
 	}
+	
+	@GetMapping("/getSpotsById/{id}")
+	public ResponseEntity<String> getSpotsById(@PathVariable("id") Long packageId) {
+	    String spots = packageService.getSpotsByPackageId(packageId);
+	    return ResponseEntity.ok(spots);
+	}
 
 	// Endpoint for updating a package by its ID
 //	@PutMapping("/updatePackage/{id}")

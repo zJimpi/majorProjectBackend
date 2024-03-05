@@ -21,6 +21,8 @@ public class HotelDto {
 	@NotBlank(message = "Hotel name is required")
 	@Size(max = 50, message = "Max. limit is 50")
 	private String hotelName;
+	
+	private String location;
 
 	private Long startingPrice;
     

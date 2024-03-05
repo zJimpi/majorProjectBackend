@@ -92,6 +92,7 @@ public class HotelsServiceImpi implements HotelsService {
 		new ResourceNotFound("Hotel", "id", hotelId));
 		
 		existingHotel.setAddress(hotel.getAddress());
+		existingHotel.setLocation(hotel.getLocation());
 		existingHotel.setStartingPrice(hotel.getStartingPrice());
 		existingHotel.setNumber(hotel.getNumber());
 		existingHotel.setHotelName(hotel.getHotelName());

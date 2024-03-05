@@ -17,4 +17,6 @@ public interface PackageService {
 	PackageDto getPackageById(Long packageId);
 
 	PackageDto savePackage(Package packageEntity);
+	
+	String getSpotsByPackageId(Long packageId);
 }
