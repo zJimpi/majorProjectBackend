@@ -2,6 +2,7 @@ package com.travel.service;
 
 import java.util.List;
 
+import com.travel.dto.HotelDto;
 import com.travel.dto.PackageDto;
 import com.travel.entity.Package;
 
@@ -19,4 +20,6 @@ public interface PackageService {
 	PackageDto savePackage(Package packageEntity);
 	
 	String getSpotsByPackageId(Long packageId);
+	
+	List<HotelDto> getHotelListByPackageLocation(String packageLocation);
 }

@@ -58,6 +58,11 @@ public class PackageController {
 	    String spots = packageService.getSpotsByPackageId(packageId);
 	    return ResponseEntity.ok(spots);
 	}
+	
+	@GetMapping("/getHotelsByPackageLocation/{packageLocation}")
+    public List<HotelDto> getHotelsByPackageLocation(@PathVariable("packageLocation") String packageLocation) {
+        return packageService.getHotelListByPackageLocation(packageLocation);
+	}
 
 	// Endpoint for updating a package by its ID
 //	@PutMapping("/updatePackage/{id}")

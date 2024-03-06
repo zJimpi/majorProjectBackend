@@ -9,24 +9,33 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.travel.dto.ActivityDto;
+import com.travel.dto.HotelDto;
 import com.travel.dto.PackageDto;
 import com.travel.dto.RoomDto;
 import com.travel.entity.Activity;
+import com.travel.entity.Hotel;
 import com.travel.entity.Package;
 import com.travel.entity.Room;
 import com.travel.exception.ResourceNotFound;
 import com.travel.repository.ActivityRepository;
+import com.travel.repository.HotelsRepository;
 import com.travel.repository.PackageRepository;
 import com.travel.service.ActivityService;
+import com.travel.service.HotelsService;
 import com.travel.service.PackageService;
 import com.travel.util.ActivityConverter;
+import com.travel.util.HotelsConverter;
 import com.travel.util.PackageConverter;
+import com.travel.util.RoomConverter;
 
 @Service
 public class PackageServiceImpl implements PackageService {
 
     @Autowired
     private PackageRepository packageRepository;
+    
+    @Autowired
+    private HotelsRepository hotelsRepository;
 
     @Autowired
     private PackageConverter packageConverter;
@@ -39,6 +48,15 @@ public class PackageServiceImpl implements PackageService {
     
     @Autowired
     private ActivityRepository activityRepository;
+    
+    @Autowired
+    private HotelsService hotelService;
+    
+    @Autowired
+    private HotelsConverter hotelsConverter;
+    
+    @Autowired
+    private RoomConverter roomsConverter;
 
     @Override
     public PackageDto savePackage(Package packageEntity) {
@@ -142,5 +160,37 @@ public class PackageServiceImpl implements PackageService {
     	Package packageEntity = packageRepository.findById(packageId).orElseThrow(() -> new ResourceNotFound("Package", "id", packageId));
     	return packageEntity.getSpots();
     }
+
+
+    @Override
+    public List<HotelDto> getHotelListByPackageLocation(String packageLocation) {
+        List<Hotel> allHotels = hotelsRepository.findAllHotelsWithRooms();
+        List<HotelDto> filteredHotelDtos = new ArrayList<>();
+
+        for (Hotel hotel : allHotels) {
+            String hotelLocation = hotel.getLocation().toLowerCase();
+            String packageLocationLower = packageLocation.toLowerCase();
+
+            if (hotelLocation.contains(packageLocationLower) || packageLocationLower.contains(hotelLocation)) {
+                // Convert Hotel entity back to HotelDto
+                HotelDto hotelDto = hotelsConverter.convertEntityToDto(hotel);
+                
+                // Convert rooms to RoomDto
+                List<RoomDto> roomDtos = new ArrayList<>();
+                for (Room room : hotel.getRoom()) {
+                    RoomDto roomDto = roomsConverter.convertEntityToDto(room);
+                    roomDtos.add(roomDto);
+                }
+                
+                // Set the rooms in the hotelDto
+                hotelDto.setRoom(roomDtos);
+                
+                filteredHotelDtos.add(hotelDto);
+            }
+        }
+
+        return filteredHotelDtos;
+    }
+
 
 }
