@@ -3,6 +3,8 @@ package com.travel.service;
 import java.util.List;
 
 import com.travel.dto.DestinationsDto;
+import com.travel.dto.HotelDto;
+import com.travel.dto.PackageDto;
 import com.travel.entity.Destinations;
 
 public interface DestinationsService {
@@ -20,4 +22,8 @@ public interface DestinationsService {
     // Method to retrieve a list of destination data, typically as a list of 'DestinationsDto' objects.
     
     DestinationsDto getDestinationById(int destId);
+    
+    List<PackageDto> getPackageListByDestination(String state, String location);
+    
+    List<HotelDto> getHotelListByDestination(String state, String location);
 }

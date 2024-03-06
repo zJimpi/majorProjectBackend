@@ -49,7 +49,10 @@ public class BookingTable {
 	private int NoOfChild;
 	
 	@Column(nullable = false)
-	private String dateRange;
+	private String checkinDate;
+	
+	@Column(nullable = false)
+	private String checkoutDate;
 	
 	@Column(nullable = true)
 	private Long totalPrice;

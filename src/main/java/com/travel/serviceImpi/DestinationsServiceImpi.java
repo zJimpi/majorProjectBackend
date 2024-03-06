@@ -8,10 +8,17 @@ import org.springframework.stereotype.Service;
 
 import com.travel.exception.ResourceNotFound;
 import com.travel.dto.DestinationsDto;
+import com.travel.dto.HotelDto;
+import com.travel.dto.PackageDto;
 import com.travel.entity.Destinations;
+import com.travel.entity.Package;
 import com.travel.repository.DestinationsRepository;
+import com.travel.repository.HotelsRepository;
+import com.travel.repository.PackageRepository;
 import com.travel.service.DestinationsService;
 import com.travel.util.DestinationsConverter;
+import com.travel.util.HotelsConverter;
+import com.travel.util.PackageConverter;
 
 @Service
 //Indicates that this class is a Spring service component.
@@ -28,6 +35,20 @@ public class DestinationsServiceImpi implements DestinationsService {
 	
 	@Autowired
     FileDataServiceImpi fileDataServiceImpi; // Service for managing file data.
+	
+	@Autowired
+	PackageRepository packageRepository;
+	
+	@Autowired
+	PackageConverter packageConverter;
+	
+	@Autowired
+	HotelsRepository hotelRepository;
+	
+	@Autowired
+	HotelsConverter hotelConverter;
+	
+	
 
  @Override
  public DestinationsDto saveDestinations(Destinations destinations) {
@@ -101,4 +122,28 @@ public DestinationsDto getDestinationById(int destId) {
 	
 	return destinationsConverter.convertEntityToDto(destination);
 }
+
+@Override
+public List<PackageDto> getPackageListByDestination(String state, String location) {
+	// TODO Auto-generated method stub
+	
+	List<Package> packageEntity = packageRepository.findAll();
+	
+	List<PackageDto> filteredPackages = new ArrayList<>();
+    for (Package pkg : packageEntity) {
+        if (pkg.getLocation().toLowerCase().contains(location) || pkg.getPckgName().toLowerCase().equals(state) || pkg.getLocation().toLowerCase().contains(state) || pkg.getPckgName().toLowerCase().contains(location)
+        		|| location.toLowerCase().contains(pkg.getLocation()) || location.toLowerCase().contains(pkg.getPckgName()) || state.toLowerCase().contains(pkg.getLocation()) || state.toLowerCase().contains(pkg.getPckgName())) {
+            filteredPackages.add(packageConverter.convertEntityToDto(pkg)); // Assuming you have a method to convert Package to PackageDto
+        }
+    }
+    return filteredPackages;
+	
+}
+
+@Override
+public List<HotelDto> getHotelListByDestination(String state, String location) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
 }

@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.travel.dto.DestinationsDto;
+import com.travel.dto.PackageDto;
 import com.travel.entity.Destinations;
 import com.travel.service.DestinationsService;
+import com.travel.service.PackageService;
 import com.travel.util.DestinationsConverter;
 
 @RestController
@@ -32,6 +35,9 @@ public class DestinationsController {
 
     @Autowired
     DestinationsConverter destinationsConverter; // Autowired converter for converting DTOs and entities
+    
+    @Autowired
+    PackageService packageService;
 
     // Endpoint for saving a destination
     @PostMapping("/saveDest")
@@ -75,5 +81,10 @@ public class DestinationsController {
     	
     	return destinationsService.getDestinationById(destinationId);
     	
+    }
+    
+    @GetMapping("/getPackageListByDestination/{state}/{location}")
+    public List<PackageDto> getPackageListByDestination(@RequestParam String state, @RequestParam String location) {
+        return destinationsService.getPackageListByDestination(state, location);
     }
 }
