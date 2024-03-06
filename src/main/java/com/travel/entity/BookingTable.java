@@ -34,24 +34,24 @@ public class BookingTable {
 	private Long packageId;
 	
 	@Column(nullable = true)
-	private Long hotelId;
+	private Long  hotelId;
 	
 	@Column(nullable = true)
-	private String[] roomTypes;
+	private int[] roomIds;
 	
 	@Column(nullable = true)
-	private int[] NoOfRooms;
+	private int[] noOfRooms;
 	
 	@Column(nullable = true)
-	private int NoOfAdults;
+	private int adults;
 	
 	@Column(nullable = true)
-	private int NoOfChild;
+	private int child;
 	
 	@Column(nullable = false)
 	private String checkInDate;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String checkOutDate;
 	
 	@Column(nullable = true)

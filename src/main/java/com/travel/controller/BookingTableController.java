@@ -55,8 +55,8 @@ public class BookingTableController {
 	    return bookingTableService.getBookingTableByUsername(username);
 	}
 	    
-	@PutMapping("/updatePriceByBookingId/{price}/{id}")
-	    public void updatePriceByBookingId(@PathVariable("price") Long price, @PathVariable("id") Long id) {
+	@PutMapping("/updatePriceByBookingId/{id}/{price}")
+	    public void updatePriceByBookingId( @PathVariable("id") Long id,@PathVariable("price") Long price) {
 		
 	    	bookingTableService.updatePriceByBookingId(id,price);
 	}
