@@ -19,7 +19,6 @@ public class bookingTableDto {
 	
 	private Long bookingId;
 	
-	@NotBlank(message = "User Name is required")
 	private String userName;
 	
 	private Long userId;
@@ -36,8 +35,9 @@ public class bookingTableDto {
 	
 	private int NoOfChild;
 	
-	@NotBlank(message = "Date Range is required")
-	private String dateRange;
+	private String checkInDate;
+	
+	private String checkOutDate;
 	
 	private Long totalPrice;
 
