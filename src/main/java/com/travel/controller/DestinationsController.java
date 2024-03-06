@@ -69,4 +69,11 @@ public class DestinationsController {
         // Call the service to get a list of destinations and return it
         return destinationsService.getDestinationList();
     }
+    
+    @GetMapping("/getDestinationById")
+    public DestinationsDto getDestinationById(@PathVariable("id") int destinationId) {
+    	
+    	return destinationsService.getDestinationById(destinationId);
+    	
+    }
 }

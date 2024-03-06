@@ -93,4 +93,12 @@ public class DestinationsServiceImpi implements DestinationsService {
      }
      // If the destination has an associated image file, call the imageDelete method in the FileDataService to delete it.
  }
+
+@Override
+public DestinationsDto getDestinationById(int destId) {
+	// TODO Auto-generated method stub
+	Destinations destination = destinationsRepository.findById(destId).orElseThrow(() -> new ResourceNotFound("Destination", "id", destId));
+	
+	return destinationsConverter.convertEntityToDto(destination);
+}
 }

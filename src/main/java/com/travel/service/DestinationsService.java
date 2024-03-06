@@ -18,4 +18,6 @@ public interface DestinationsService {
 
     List<DestinationsDto> getDestinationList();
     // Method to retrieve a list of destination data, typically as a list of 'DestinationsDto' objects.
+    
+    DestinationsDto getDestinationById(int destId);
 }
