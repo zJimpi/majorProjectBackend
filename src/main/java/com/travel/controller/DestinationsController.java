@@ -70,7 +70,7 @@ public class DestinationsController {
         return destinationsService.getDestinationList();
     }
     
-    @GetMapping("/getDestinationById")
+    @GetMapping("/getDestinationById/{id}")
     public DestinationsDto getDestinationById(@PathVariable("id") int destinationId) {
     	
     	return destinationsService.getDestinationById(destinationId);
