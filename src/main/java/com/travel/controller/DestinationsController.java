@@ -85,12 +85,12 @@ public class DestinationsController {
     }
     
     @GetMapping("/getPackageListByDestination/{state}/{location}")
-    public List<PackageDto> getPackageListByDestination(@RequestParam String state, @RequestParam String location) {
+    public List<PackageDto> getPackageListByDestination(@PathVariable String state, @PathVariable String location) {
         return destinationsService.getPackageListByDestination(state, location);
     }
     
     @GetMapping("/getHotelListByDestination/{state}/{location}")
-    public List<HotelDto> getHotelListByDestination(@RequestParam String state, @RequestParam String location) {
+    public List<HotelDto> getHotelListByDestination(@PathVariable String state, @PathVariable String location) {
         return destinationsService.getHotelListByDestination(state, location);
     }
 }

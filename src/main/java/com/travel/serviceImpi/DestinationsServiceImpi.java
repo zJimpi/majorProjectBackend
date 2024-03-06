@@ -132,7 +132,7 @@ public List<PackageDto> getPackageListByDestination(String state, String locatio
 	
 	List<PackageDto> filteredPackages = new ArrayList<>();
     for (Package pkg : packageEntity) {
-        if (pkg.getLocation().toLowerCase().contains(location) || pkg.getPckgName().toLowerCase().equals(state) || pkg.getLocation().toLowerCase().contains(state) || pkg.getPckgName().toLowerCase().contains(location)
+        if (pkg.getLocation().toLowerCase().contains(location.toLowerCase()) || pkg.getPckgName().toLowerCase().contains(state.toLowerCase()) || pkg.getLocation().toLowerCase().contains(state.toLowerCase()) || pkg.getPckgName().toLowerCase().contains(location.toLowerCase())
         		|| location.toLowerCase().contains(pkg.getLocation()) || location.toLowerCase().contains(pkg.getPckgName()) || state.toLowerCase().contains(pkg.getLocation()) || state.toLowerCase().contains(pkg.getPckgName())) {
             filteredPackages.add(packageConverter.convertEntityToDto(pkg)); 
         }
@@ -149,7 +149,7 @@ public List<HotelDto> getHotelListByDestination(String state, String location) {
 	
 	List<HotelDto> filteredHotels = new ArrayList<>();
 	for(Hotel hotel : hotels) {
-		if(hotel.getLocation().toLowerCase().contains(state) || hotel.getLocation().toLowerCase().contains(location) || state.toLowerCase().contains(hotel.getLocation()) || location.toLowerCase().contains(hotel.getLocation()))
+		if(hotel.getLocation().toLowerCase().contains(state.toLowerCase()) || hotel.getLocation().toLowerCase().contains(location.toLowerCase()) || state.toLowerCase().contains(hotel.getLocation()) || location.toLowerCase().contains(hotel.getLocation()))
 			
 			filteredHotels.add(hotelConverter.convertEntityToDto(hotel));
 	}
