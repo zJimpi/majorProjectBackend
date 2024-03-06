@@ -11,6 +11,7 @@ import com.travel.dto.DestinationsDto;
 import com.travel.dto.HotelDto;
 import com.travel.dto.PackageDto;
 import com.travel.entity.Destinations;
+import com.travel.entity.Hotel;
 import com.travel.entity.Package;
 import com.travel.repository.DestinationsRepository;
 import com.travel.repository.HotelsRepository;
@@ -133,7 +134,7 @@ public List<PackageDto> getPackageListByDestination(String state, String locatio
     for (Package pkg : packageEntity) {
         if (pkg.getLocation().toLowerCase().contains(location) || pkg.getPckgName().toLowerCase().equals(state) || pkg.getLocation().toLowerCase().contains(state) || pkg.getPckgName().toLowerCase().contains(location)
         		|| location.toLowerCase().contains(pkg.getLocation()) || location.toLowerCase().contains(pkg.getPckgName()) || state.toLowerCase().contains(pkg.getLocation()) || state.toLowerCase().contains(pkg.getPckgName())) {
-            filteredPackages.add(packageConverter.convertEntityToDto(pkg)); // Assuming you have a method to convert Package to PackageDto
+            filteredPackages.add(packageConverter.convertEntityToDto(pkg)); 
         }
     }
     return filteredPackages;
@@ -143,7 +144,16 @@ public List<PackageDto> getPackageListByDestination(String state, String locatio
 @Override
 public List<HotelDto> getHotelListByDestination(String state, String location) {
 	// TODO Auto-generated method stub
-	return null;
+	
+	List<Hotel> hotels = hotelRepository.findAll();
+	
+	List<HotelDto> filteredHotels = new ArrayList<>();
+	for(Hotel hotel : hotels) {
+		if(hotel.getLocation().toLowerCase().contains(state) || hotel.getLocation().toLowerCase().contains(location) || state.toLowerCase().contains(hotel.getLocation()) || location.toLowerCase().contains(hotel.getLocation()))
+			
+			filteredHotels.add(hotelConverter.convertEntityToDto(hotel));
+	}
+	return filteredHotels;
 }
 
 }

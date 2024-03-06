@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.travel.dto.DestinationsDto;
+import com.travel.dto.HotelDto;
 import com.travel.dto.PackageDto;
 import com.travel.entity.Destinations;
 import com.travel.service.DestinationsService;
@@ -86,5 +87,10 @@ public class DestinationsController {
     @GetMapping("/getPackageListByDestination/{state}/{location}")
     public List<PackageDto> getPackageListByDestination(@RequestParam String state, @RequestParam String location) {
         return destinationsService.getPackageListByDestination(state, location);
+    }
+    
+    @GetMapping("/getHotelListByDestination/{state}/{location}")
+    public List<HotelDto> getHotelListByDestination(@RequestParam String state, @RequestParam String location) {
+        return destinationsService.getHotelListByDestination(state, location);
     }
 }
