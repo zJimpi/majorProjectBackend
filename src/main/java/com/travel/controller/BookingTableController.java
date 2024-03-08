@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.travel.dto.ActivityDto;
 import com.travel.dto.bookingTableDto;
 import com.travel.service.BookingTableService;
 import com.travel.util.BookingTableConverter;
@@ -51,7 +50,7 @@ public class BookingTableController {
     }
 	
 	@GetMapping("/getBookingListByUsername/{username}")
-	    public List<bookingTableDto> getActivityByPackageId(@PathVariable("bookingId") String username) {
+	    public List<bookingTableDto> getBookingListByUsername(@PathVariable("bookingId") String username) {
 	    return bookingTableService.getBookingTableByUsername(username);
 	}
 	    
@@ -60,6 +59,4 @@ public class BookingTableController {
 		
 	    	bookingTableService.updatePriceByBookingId(id,price);
 	}
-
-
 }

@@ -18,40 +18,24 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookingTable {
+public class Review {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long bookingId;
+	private int reviewId;
 	
 	@Column(nullable = false)
-	private String userName;
+	private String username;
 	
 	@Column(nullable = true)
-	private Long packageId;
+	private String location;
 	
 	@Column(nullable = true)
-	private Long hotelId;
+	private String hotelName;
 	
 	@Column(nullable = true)
-	private int[] roomIds;
-	
-	@Column(nullable = true)
-	private int[] NoOfRooms;
-	
-	@Column(nullable = true)
-	private int NoOfAdults;
-	
-	@Column(nullable = true)
-	private int NoOfChild;
+	private String packageName;
 	
 	@Column(nullable = false)
-	private String checkInDate;
-	
-	@Column(nullable = true)
-	private String checkOutDate;
-	
-	@Column(nullable = true)
-	private Long totalPrice;
-
+	private String comment;
 }

@@ -23,9 +23,6 @@ private Long bookingId;
 	private String userName;
 	
 	
-	private Long userId;
-	
-	
 	private Long packageId;
 	
 	
@@ -35,13 +32,13 @@ private Long bookingId;
 	private int[] roomIds;
 	
 
-	private int[] noOfRooms;
+	private int[] NoOfRooms;
 	
 	
-	private int adults;
+	private int NoOfAdults;
 	
 	
-	private int child;
+	private int NoOfChild;
 	
 	
 	private String checkInDate;
