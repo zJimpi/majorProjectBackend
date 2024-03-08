@@ -14,5 +14,8 @@ public interface ReviewReposiory extends JpaRepository<Review, Integer> {
 	
 	@Query("SELECT r FROM Review r WHERE r.location = :location AND r.packageName = :packageName")
     List<Review> findReviewsByLocationAndPackageName(String location, String packageName);
+	
+	@Query("SELECT r FROM Review r WHERE r.location = :location")
+    List<Review> findReviewsByLocation(String location);
 
 }

@@ -13,4 +13,6 @@ public interface ReviewService {
 	List<ReviewDto> getReviewByLocationAndHotelName(String location, String hotelName);
 	
 	List<ReviewDto> getReviewByLocationAndPackageName(String location, String packageName);
+	
+	List<ReviewDto> getReviewByLocation(String location);
 }

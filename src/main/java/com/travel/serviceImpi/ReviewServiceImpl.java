@@ -74,4 +74,18 @@ public class ReviewServiceImpl implements ReviewService {
 
 		return reviewDtos;
 	}
+
+	@Override
+	public List<ReviewDto> getReviewByLocation(String location) {
+		// TODO Auto-generated method stub
+		List<Review> reviews = reviewReposiory.findReviewsByLocation(location);
+		List<ReviewDto> reviewDtos = new ArrayList<>();
+
+		for (Review review : reviews) {
+			ReviewDto reviewDto = reviewConverter.convertEntityToDto(review);
+			reviewDtos.add(reviewDto);
+		}
+
+		return reviewDtos;
+	}
 }

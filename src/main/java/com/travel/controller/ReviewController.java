@@ -49,6 +49,9 @@ public class ReviewController {
     public List<ReviewDto> getReviewByLocationAndPackageName(@PathVariable("location") String location, @PathVariable("packageName") String packageName) {
         return reviewService.getReviewByLocationAndPackageName(location,packageName);
     }
-
-
+    
+    @GetMapping("/getReviewByLocation/{location}")
+    public List<ReviewDto> getReviewByLocation(@PathVariable("location") String location) {
+        return reviewService.getReviewByLocation(location);
+    }
 }
