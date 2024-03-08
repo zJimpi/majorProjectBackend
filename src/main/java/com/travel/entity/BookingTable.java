@@ -37,13 +37,13 @@ public class BookingTable {
 	private int[] roomIds;
 	
 	@Column(nullable = true)
-	private int[] NoOfRooms;
+	private int[] noOfRooms;
 	
 	@Column(nullable = true)
-	private int NoOfAdults;
+	private int adults;
 	
 	@Column(nullable = true)
-	private int NoOfChild;
+	private int child;
 	
 	@Column(nullable = false)
 	private String checkInDate;

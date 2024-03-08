@@ -16,29 +16,26 @@ import lombok.Setter;
 @Setter
 public class bookingTableDto {
 	
-	
-private Long bookingId;
-	
+	private Long bookingId;
 	
 	private String userName;
-	
-	
+
 	private Long packageId;
 	
+
+	private Long hotelId;
 	
-	private Long  hotelId;
-	
-	
+
 	private int[] roomIds;
 	
 
-	private int[] NoOfRooms;
+	private int[] noOfRooms;
 	
+
+	private int adults;
 	
-	private int NoOfAdults;
-	
-	
-	private int NoOfChild;
+
+	private int child;
 	
 	
 	private String checkInDate;
