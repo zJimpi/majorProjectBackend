@@ -54,15 +54,15 @@ public class FileDataServiceImpi {
 	private CarRentalDetailsRepository carRentalDetailsRepository;
  
  
+	private final String globalPath = "E:/MajorProjectFrontend/majorProjectFrontend";
  
- 
-	private final String destFOLDER_PATH = "E:/MajorProjectFrontend/majorProjectFrontend/src/assets/destImage/";
-	private final String packageFOLDER_PATH = "E:/MajorProjectFrontend/majorProjectFrontend/src/assets/pkg_img/";
-	private final String activityFOLDER_PATH = "E:/MajorProjectFrontend/majorProjectFrontend/src/assets/activityImage/";
-	private final String roomFOLDER_PATH = "E:/MajorProjectFrontend/majorProjectFrontend/src/assets/roomImage/";
-	private final String hotelFOLDER_PATH = "E:/MajorProjectFrontend/majorProjectFrontend/src/assets/hotel_image/";
-	private final String userFOLDER_PATH = "E:/MajorProjectFrontend/majorProjectFrontend/src/assets/userImage/";
-	private final String carRentLocationFOLDER_PATH = "E:/MajorProjectFrontend/majorProjectFrontend/src/assets/carRentLocationImage/";
+	private final String destFOLDER_PATH = globalPath + "/src/assets/destImage/";
+	private final String packageFOLDER_PATH = globalPath + "/src/assets/pkg_img/";
+	private final String activityFOLDER_PATH = globalPath + "/src/assets/activityImage/";
+	private final String roomFOLDER_PATH = globalPath + "/src/assets/roomImage/";
+	private final String hotelFOLDER_PATH = globalPath + "/src/assets/hotel_image/";
+	private final String userFOLDER_PATH = globalPath + "/src/assets/userImage/";
+	private final String carRentLocationFOLDER_PATH = globalPath +"/src/assets/carRentLocationImage/";
 	
  
 	public String uploadImageToDestinationFileSystem(MultipartFile file, int id) throws IOException {
