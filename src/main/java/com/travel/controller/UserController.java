@@ -99,6 +99,6 @@ public class UserController {
 
     @GetMapping("/getCarBookingsByUsername/{username}")
     public List<CarBookingsDto> getCarBookingDetailsByUsername(@PathVariable String username) {
-        return userService.getCarBookingDetailsByUsername(username);
+        return userService.getCarBookingDetailsByUsername(username); 
     }
 }

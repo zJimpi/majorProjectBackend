@@ -36,4 +36,6 @@ public class PackageDto {
     
     @OneToMany
 	private List<Activity> activity;
+    
+    private String imageFile;
 }

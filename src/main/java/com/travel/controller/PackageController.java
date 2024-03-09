@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.travel.dto.HotelDto;
 import com.travel.dto.PackageDto;
-import com.travel.dto.SpotDto;
 import com.travel.entity.Package;
 import com.travel.service.PackageService;
 import com.travel.util.PackageConverter;

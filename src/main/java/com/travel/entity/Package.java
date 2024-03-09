@@ -43,5 +43,7 @@ public class Package {
     
     @OneToMany
 	private List<Activity> activity;
+    
+    private String imageFile;
    
 }

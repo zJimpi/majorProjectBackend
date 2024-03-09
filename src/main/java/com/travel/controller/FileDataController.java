@@ -26,26 +26,25 @@ public class FileDataController {
 	@Autowired
 	FileDataServiceImpi serviceImpi; // Injects an instance of the FileDataService to interact with the file system.
 
-	@PostMapping("/fileSystem")
-	// Defines an HTTP POST endpoint for uploading an image to the file system.
-	public ResponseEntity<?> uploadImageToFIleSystem(@RequestParam("imageFile") MultipartFile file) throws IOException {
-		// This method receives a multipart file as a parameter, typically an image file.
-		// It then calls the 'uploadImageToFileSystem' method from the 'service' to store the image.
-		String uploadImage = serviceImpi.uploadImageToFileSystem(file);
-		// Returns a ResponseEntity with HTTP status OK (200) and the uploaded image's filename or path as the response body.
+	@PostMapping("/fileSystem/{destId}")
+	
+	public ResponseEntity<?> uploadImageToFIleSystem(@RequestParam("imageFile") MultipartFile file, @PathVariable("destId") int destId) throws IOException {
+		
+		String uploadImage = serviceImpi.uploadImageToFileSystem(file,destId);
+		
 		return ResponseEntity.status(HttpStatus.OK)
 				.body(uploadImage);
 	}
 
-	@GetMapping("/fileSystem/{fileName}")
-	// Defines an HTTP GET endpoint for downloading an image from the file system.
-	public ResponseEntity<?> downloadImageFromFileSystem(@PathVariable String fileName) throws IOException {
-		// This method takes the 'fileName' from the URL path and calls the 'downloadImageFromFileSystem' method from the 'service'.
-		byte[] imageData = serviceImpi.downloadImageFromFileSystem(fileName);
-		// Returns a ResponseEntity with HTTP status OK (200) and sets the response content type to "image/png".
-		// The image data is set as the response body, which should be a binary image.
-		return ResponseEntity.status(HttpStatus.OK)
-				.contentType(MediaType.valueOf("image/png"))
-				.body(imageData);
-	}
+//	@GetMapping("/fileSystem/{fileName}")
+//	// Defines an HTTP GET endpoint for downloading an image from the file system.
+//	public ResponseEntity<?> downloadImageFromFileSystem(@PathVariable String fileName) throws IOException {
+//		// This method takes the 'fileName' from the URL path and calls the 'downloadImageFromFileSystem' method from the 'service'.
+//		byte[] imageData = serviceImpi.downloadImageFromFileSystem(fileName);
+//		// Returns a ResponseEntity with HTTP status OK (200) and sets the response content type to "image/png".
+//		// The image data is set as the response body, which should be a binary image.
+//		return ResponseEntity.status(HttpStatus.OK)
+//				.contentType(MediaType.valueOf("image/png"))
+//				.body(imageData);
+//	}
 }

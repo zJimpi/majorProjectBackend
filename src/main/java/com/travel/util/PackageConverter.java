@@ -1,14 +1,11 @@
 package com.travel.util;
 
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.travel.dto.PackageDto;
-import com.travel.dto.SpotDto;
 import com.travel.entity.Package;
 //import com.travel.entity.Spot;
 
