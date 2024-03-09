@@ -27,4 +27,6 @@ public class RoomDto {
     
     @ManyToOne
     private Hotel hotel;
+    
+    private String imageFile;
 }

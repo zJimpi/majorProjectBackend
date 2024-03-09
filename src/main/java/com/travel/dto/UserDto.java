@@ -26,6 +26,6 @@ public class UserDto {
    
     private String role;
     
-//    private String profilePicture;
-    
+    private String imageFile;
+       
 }

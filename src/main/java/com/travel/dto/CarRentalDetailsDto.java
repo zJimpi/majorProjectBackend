@@ -15,4 +15,6 @@ public class CarRentalDetailsDto {
 	
 	private float averagePrice;
 	
+	private String imageFile;
+	
 }

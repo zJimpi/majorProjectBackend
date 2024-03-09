@@ -38,5 +38,7 @@ public class HotelDto {
 
     @OneToMany
     private List<RoomDto> room;
+    
+    private String imageFile;
 
 }

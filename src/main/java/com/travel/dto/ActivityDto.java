@@ -26,5 +26,7 @@ public class ActivityDto {
 	
 	@ManyToOne
 	private Package pckg;
+	
+	private String imageFile;
 
 }

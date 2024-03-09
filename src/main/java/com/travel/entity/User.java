@@ -43,7 +43,7 @@ public class User {
     @Column
     private String role;
     
-//    @Column
-//    private String profilePicture;
+    private String imageFile;
+    
     
 }

@@ -36,5 +36,7 @@ public class Room {
 	
 	@ManyToOne
 	private Hotel hotel;
+	
+	private String imageFile;
    
 }

@@ -48,6 +48,8 @@ public class Hotel {
 	
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<Room> room;
+	
+	private String imageFile;
 
 }
 	 

@@ -36,5 +36,7 @@ public class Activity {
 	
 	@ManyToOne
 	private Package pckg;
+	
+	private String imageFile;
 
 }

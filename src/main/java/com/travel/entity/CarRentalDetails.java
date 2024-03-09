@@ -35,5 +35,7 @@ public class CarRentalDetails {
 	
 	@Column(nullable= false)
 	private float averagePrice;
+	
+	private String imageFile;
 
 }
