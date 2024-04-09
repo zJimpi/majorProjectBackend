@@ -41,6 +41,12 @@ public class Package {
     @Column(name = "Spots", nullable = false)
     private String spots;
     
+    @Column(nullable = false)
+    private int maxNoOfBookings;
+    
+    @Column(nullable = true)
+    private int noOfBookings;
+    
     @OneToMany
 	private List<Activity> activity;
     

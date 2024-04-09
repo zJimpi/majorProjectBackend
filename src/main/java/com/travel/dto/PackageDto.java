@@ -3,6 +3,7 @@ package com.travel.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -33,6 +34,10 @@ public class PackageDto {
     private Double price;
     
     private String spots;
+    
+    private int maxNoOfBookings;
+    
+    private int noOfBookings;
     
     @OneToMany
 	private List<Activity> activity;

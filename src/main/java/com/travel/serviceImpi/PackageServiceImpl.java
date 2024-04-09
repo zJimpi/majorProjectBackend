@@ -50,9 +50,6 @@ public class PackageServiceImpl implements PackageService {
     private ActivityRepository activityRepository;
     
     @Autowired
-    private HotelsService hotelService;
-    
-    @Autowired
     private HotelsConverter hotelsConverter;
     
     @Autowired
@@ -99,6 +96,8 @@ public class PackageServiceImpl implements PackageService {
         existingPackage.setLocation(packageEntity.getLocation());
         existingPackage.setPrice(packageEntity.getPrice());
         existingPackage.setSpots(packageEntity.getSpots());
+        existingPackage.setMaxNoOfBookings(packageEntity.getMaxNoOfBookings());
+        existingPackage.setNoOfBookings(packageEntity.getNoOfBookings());
 
         // Check if a package with the same package code already exists
         if (packageAlreadyExists(existingPackage.getPackageCode(), packageId)) {
@@ -191,6 +190,4 @@ public class PackageServiceImpl implements PackageService {
 
         return filteredHotelDtos;
     }
-
-
 }
