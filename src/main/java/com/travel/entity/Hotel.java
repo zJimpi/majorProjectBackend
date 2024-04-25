@@ -43,6 +43,9 @@ public class Hotel {
 	@Column(length= 11, nullable= false)
 	private String number;
 	
+	@Column(nullable= false)
+	private String nearBy;
+	
 	@Column(nullable= true)
 	private String imgUrl;
 	

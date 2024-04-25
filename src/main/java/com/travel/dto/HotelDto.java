@@ -33,6 +33,8 @@ public class HotelDto {
 
 	@Size(max = 20, message = "Max. limit is 20")
 	private String number;
+	
+	private String nearBy;
 
 	private String imgUrl;
 

@@ -96,6 +96,7 @@ public class HotelsServiceImpi implements HotelsService {
 		existingHotel.setStartingPrice(hotel.getStartingPrice());
 		existingHotel.setNumber(hotel.getNumber());
 		existingHotel.setHotelName(hotel.getHotelName());
+		existingHotel.setNearBy(hotel.getNearBy());
 		existingHotel.setImgUrl(hotel.getImgUrl());
 		
 		hotelsRepository.save(existingHotel);

@@ -10,8 +10,10 @@ import com.travel.dto.ActivityDto;
 import com.travel.dto.bookingTableDto;
 import com.travel.entity.Activity;
 import com.travel.entity.BookingTable;
+import com.travel.entity.Package;
 import com.travel.exception.ResourceNotFound;
 import com.travel.repository.BookingTableRepository;
+import com.travel.repository.PackageRepository;
 import com.travel.service.BookingTableService;
 import com.travel.util.BookingTableConverter;
 
@@ -23,12 +25,20 @@ public class BookingTableServiceImpi implements BookingTableService {
 	
 	@Autowired
 	private BookingTableRepository bookingTableRepository;
+	
+	@Autowired
+	private PackageRepository packageRepository;
 
 	@Override
 	public bookingTableDto saveBookingTable(bookingTableDto BookingTableDto) {
 		// TODO Auto-generated method stub
 		
 		BookingTable bookingTable = bookingTableConverter.convertDtoToEntity(BookingTableDto);
+		if(bookingTable.getPackageId()!=null)
+		{
+			Package packageEntity = packageRepository.findById(bookingTable.getPackageId()).orElseThrow(() -> new ResourceNotFound("Package", "id", bookingTable.getPackageId()));
+			packageEntity.setNoOfBookings(packageEntity.getNoOfBookings()+1);
+		}
 		bookingTableRepository.save(bookingTable);
 		return bookingTableConverter.convertEntityToDto(bookingTable);
 		
