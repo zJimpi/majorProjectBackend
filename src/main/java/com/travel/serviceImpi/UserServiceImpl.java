@@ -176,4 +176,11 @@ public class UserServiceImpl implements UserService {
 	    }
 	    return carBookingsDtoList;
 	}
+
+	@Override
+	public UserDto getUserByUsername(String userName) {
+		// TODO Auto-generated method stub
+		User user = userRepository.findUserByUsername(userName);
+		return userConverter.convertEntityToDto(user);
+	}
 }

@@ -73,6 +73,12 @@ public class UserController {
 		return userService.getUserByUsernameAndPassword(username, password);
 	}
 	
+	@GetMapping("/getUserBy/{username}")
+	public UserDto getUser(@PathVariable("username") String username)
+	{
+		return userService.getUserByUsername(username);
+	}
+	
 	@GetMapping("/checkAdmin/{username}/{password}")
     public boolean checkAdmin(@PathVariable("username") String username, @PathVariable("password") String password) {
 		boolean isAdmin = userService.checkAdmin(username);

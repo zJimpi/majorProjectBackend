@@ -20,6 +20,8 @@ public interface UserService {
 	
 	UserDto getUserByUsernameAndPassword(String userName, String password);
 	
+	UserDto getUserByUsername(String userName);
+	
 	boolean checkAdmin(String userName);
 	
 	List<bookingTableDto> getPackageListByUsername(String Username);
