@@ -19,31 +19,28 @@ public class bookingTableDto {
 	private Long bookingId;
 	
 	private String userName;
-
+	
 	private Long packageId;
 	
-
+	private String packageName;
+	
 	private Long hotelId;
 	
-
-	private int[] roomIds;
+	private String hotelName;
 	
-
+	private Long[] roomIds;
+	
 	private int[] noOfRooms;
 	
-
+	private String[] roomTypes;
+	
 	private int adults;
 	
-
 	private int child;
-	
 	
 	private String checkInDate;
 	
-	
 	private String checkOutDate;
 	
-	
 	private Long totalPrice;
-
 }
