@@ -22,4 +22,6 @@ public interface PackageService {
 	String getSpotsByPackageId(Long packageId);
 	
 	List<HotelDto> getHotelListByPackageLocation(String packageLocation);
+	
+	void updatePackageRating(String packageName);
 }

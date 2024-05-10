@@ -47,6 +47,10 @@ public class Package {
     @Column(nullable = true)
     private int noOfBookings;
     
+    @Column(nullable = true)
+    private int rating;
+    
+    
     @OneToMany
 	private List<Activity> activity;
     

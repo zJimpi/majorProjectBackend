@@ -73,4 +73,9 @@ public class HotelsController {
 		 return "room id "+roomId+" assigned to hotel id "+hotelId;
 			
 	}
+	
+	@PostMapping("/updateHotelRating/{hotelName}")
+    public void updateHotelRating(@PathVariable String hotelName) {
+		hotelsService.updateHotelRating(hotelName);
+	}
 }

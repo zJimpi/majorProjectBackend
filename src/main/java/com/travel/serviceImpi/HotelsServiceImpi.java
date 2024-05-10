@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 import com.travel.dto.HotelDto;
 import com.travel.dto.RoomDto;
 import com.travel.entity.Hotel;
+import com.travel.entity.Review;
 import com.travel.entity.Room;
 import com.travel.exception.ResourceNotFound;
 import com.travel.repository.HotelsRepository;
+import com.travel.repository.ReviewReposiory;
 import com.travel.repository.RoomRepository;
 import com.travel.service.HotelsService;
 import com.travel.service.RoomService;
@@ -37,6 +39,10 @@ public class HotelsServiceImpi implements HotelsService {
 	
 	@Autowired
 	private RoomService roomService;
+	
+	@Autowired
+	private ReviewReposiory reviewReposiory;
+
 
 	@Override
 	public HotelDto saveHotel(Hotel hotel) {
@@ -105,6 +111,7 @@ public class HotelsServiceImpi implements HotelsService {
 		return hotelsConverter.convertEntityToDto(existingHotel);
 	}
 
+	@Override
 	public void assignRoomidToHotelId(Long roomId,Long hotelId) {
 		
 		Room room = roomRepository.findById(roomId).orElseThrow(()->
@@ -112,15 +119,21 @@ public class HotelsServiceImpi implements HotelsService {
 			
 		Hotel hotel = hotelsRepository.findById(hotelId).orElseThrow(()->
 		new ResourceNotFound("Hotel", "id", hotelId));
-		
-		
 		room.setHotel(hotel);
-		
-
 		roomRepository.save(room);
 		hotelsRepository.save(hotel);
-		}
-
-
+	}
 	
+	@Override
+	public void updateHotelRating(String hotelName)
+	{
+		List<Review> reviews = reviewReposiory.findReviewsByHotelName(hotelName);
+		int totalRating = 0;
+		for(Review review : reviews) {
+			totalRating = totalRating + review.getRating();
+		}
+		int averageRating = (int) Math.floor((double) totalRating / reviews.size());
+		Hotel hotel = hotelsRepository.findHotelByName(hotelName);
+		hotel.setRating(averageRating);
+	}
 }

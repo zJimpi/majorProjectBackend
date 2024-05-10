@@ -15,11 +15,13 @@ import com.travel.dto.RoomDto;
 import com.travel.entity.Activity;
 import com.travel.entity.Hotel;
 import com.travel.entity.Package;
+import com.travel.entity.Review;
 import com.travel.entity.Room;
 import com.travel.exception.ResourceNotFound;
 import com.travel.repository.ActivityRepository;
 import com.travel.repository.HotelsRepository;
 import com.travel.repository.PackageRepository;
+import com.travel.repository.ReviewReposiory;
 import com.travel.service.ActivityService;
 import com.travel.service.HotelsService;
 import com.travel.service.PackageService;
@@ -54,6 +56,9 @@ public class PackageServiceImpl implements PackageService {
     
     @Autowired
     private RoomConverter roomsConverter;
+    
+    @Autowired
+	private ReviewReposiory reviewReposiory;
 
     @Override
     public PackageDto savePackage(Package packageEntity) {
@@ -190,4 +195,17 @@ public class PackageServiceImpl implements PackageService {
 
         return filteredHotelDtos;
     }
+    
+    @Override
+    public void updatePackageRating(String packageName)
+	{
+		List<Review> reviews = reviewReposiory.findReviewsByPackageName(packageName);
+		int totalRating = 0;
+		for(Review review : reviews) {
+			totalRating = totalRating + review.getRating();
+		}
+		int averageRating = (int) Math.floor((double) totalRating / reviews.size());
+		Package packageEntity = packageRepository.findPackageByName(packageName);
+		packageEntity.setRating(averageRating);
+	}
 }
