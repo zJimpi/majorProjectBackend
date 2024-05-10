@@ -135,5 +135,6 @@ public class HotelsServiceImpi implements HotelsService {
 		int averageRating = (int) Math.floor((double) totalRating / reviews.size());
 		Hotel hotel = hotelsRepository.findHotelByName(hotelName);
 		hotel.setRating(averageRating);
+		hotelsRepository.save(hotel);
 	}
 }

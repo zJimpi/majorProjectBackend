@@ -63,7 +63,7 @@ public class PackageController {
         return packageService.getHotelListByPackageLocation(packageLocation);
 	}
 	
-	@PostMapping("/updatePackageRating/{packageName}")
+	@PutMapping("/updatePackageRating/{packageName}")
     public void updatePackageRating(@PathVariable String packageName) {
 		packageService.updatePackageRating(packageName);
 	}

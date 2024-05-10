@@ -207,5 +207,8 @@ public class PackageServiceImpl implements PackageService {
 		int averageRating = (int) Math.floor((double) totalRating / reviews.size());
 		Package packageEntity = packageRepository.findPackageByName(packageName);
 		packageEntity.setRating(averageRating);
+		
+		packageRepository.save(packageEntity);
+		
 	}
 }
