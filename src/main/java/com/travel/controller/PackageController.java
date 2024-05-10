@@ -62,6 +62,11 @@ public class PackageController {
     public List<HotelDto> getHotelsByPackageLocation(@PathVariable("packageLocation") String packageLocation) {
         return packageService.getHotelListByPackageLocation(packageLocation);
 	}
+	
+	@PostMapping("/updatePackageRating/{packageName}")
+    public void updatePackageRating(@PathVariable String packageName) {
+		packageService.updatePackageRating(packageName);
+	}
 
 	// Endpoint for updating a package by its ID
 //	@PutMapping("/updatePackage/{id}")

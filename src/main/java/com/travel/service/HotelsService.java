@@ -14,6 +14,7 @@ public interface HotelsService {
 	HotelDto updateHotel(Long hotelId, Hotel existingHotel);
 	public List<HotelDto> getHotelList();
 	public void assignRoomidToHotelId(Long roomId,Long hotelId);
+	void updateHotelRating(String hotelName);
 	
 	
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -35,6 +36,8 @@ public class HotelDto {
 	private String number;
 	
 	private String nearBy;
+	
+    private int rating;
 
 	private String imgUrl;
 

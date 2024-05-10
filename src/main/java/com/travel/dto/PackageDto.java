@@ -39,6 +39,8 @@ public class PackageDto {
     
     private int noOfBookings;
     
+    private int rating;
+    
     @OneToMany
 	private List<Activity> activity;
     
