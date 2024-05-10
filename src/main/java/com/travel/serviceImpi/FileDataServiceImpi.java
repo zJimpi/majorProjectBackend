@@ -54,7 +54,7 @@ public class FileDataServiceImpi {
 	private CarRentalDetailsRepository carRentalDetailsRepository;
  
  
-	private final String globalPath = "E:/MajorProjectFrontend/majorProjectFrontend";
+	private final String globalPath = "S:/minor_project/majorproject/fontentcopy";
  
 
 	private final String destFOLDER_PATH = globalPath + "/src/assets/destImage/";

@@ -74,7 +74,7 @@ public class HotelsController {
 			
 	}
 	
-	@PostMapping("/updateHotelRating/{hotelName}")
+	@PutMapping("/updateHotelRating/{hotelName}")
     public void updateHotelRating(@PathVariable String hotelName) {
 		hotelsService.updateHotelRating(hotelName);
 	}
